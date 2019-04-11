@@ -13,7 +13,7 @@ $userid= $_SESSION['userid'];
         $fetch = $sql5->fetch_array();
         $docid = $fetch['docid']+1;
 
-   		$get_type = $con->query("SELECT type_id FROM document_type WHERE type_name = '$doc_type'");
+   		/*$get_type = $con->query("SELECT type_id FROM document_type WHERE type_name = '$doc_type'");
 
    		$rows_type = $get_type->num_rows;
    		if($rows_type==0){
@@ -44,20 +44,18 @@ $userid= $_SESSION['userid'];
         $fetch_location = $get_location->fetch_array();
         $locationid = $fetch_location['location_id'];
 
-      }
+      }*/
    		
    		$now = date('Y-m-d H:i:s');
-        $insert= $con->query("INSERT INTO document_info(document_id ,logged_date,document_date,company_id,location_id,user_id,type_id,department_id,subject,sender_company, sender_person,addressee_company, addressee_person, copy_type, confidential, signatory,remarks) VALUES ('$docid','$now','$doc_date','$company','$locationid','$userid','$typeid','$department','$subject','$sender_comp','$sender_person','$add_comp','$add_person','$copy_type', '$confidential','$signatory','$remarks')");
+        $insert= $con->query("INSERT INTO document_info(document_id ,logged_date,document_date,company_id,interval,user_id,units,pac_mw,tac_ceneco,bid_offer, bcq_nom,dispatched, cap_dispatch, foh, mq, revenue,remarks) VALUES ('$docid','$now','$doc_date','$company','$interval','$userid','$unit','$pac','$tac','$bid','$bcq','$dispatched','$cd','$foh', '$mq','$revenue','$remarks')");
     
-      
-      for($x=1;$x<=3;$x++){
-          $share='share'.$x;
-          $suser = $$share;
-
-          if(!empty($suser)){
-            $insertshare= $con->query("INSERT INTO shared_document(document_id, user_id) VALUES ('$docid', '$suser')");
-          }
-      }
+        /*for($x=1;$x<=3;$x++){
+            $share='share'.$x;
+            $suser = $$share;
+            if(!empty($suser)){
+                $insertshare= $con->query("INSERT INTO shared_document(document_id, user_id) VALUES ('$docid', '$suser')");
+            }
+        }*/
 
         
         if(!isset($counterX) || $counterX == ''){
@@ -95,7 +93,7 @@ $userid= $_SESSION['userid'];
         }  
     } else {
 
-    	$get_type = $con->query("SELECT type_id FROM document_type WHERE type_name = '$doc_type'");
+    	/*$get_type = $con->query("SELECT type_id FROM document_type WHERE type_name = '$doc_type'");
 
    		$rows_type = $get_type->num_rows;
    		if($rows_type==0){
@@ -123,10 +121,10 @@ $userid= $_SESSION['userid'];
         $fetch_location = $get_location->fetch_array();
         $locationid = $fetch_location['location_id'];
 
-      }
+      }*/
 
     	$now = date('Y-m-d H:i:s');
-        $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',location_id='$locationid', user_id='$userid',type_id='$typeid',department_id='$department',subject='$subject',sender_company='$sender_comp', sender_person='$sender_person',addressee_company='$add_comp',addressee_person='$add_person',copy_type='$copy_type', confidential = '$confidential', signatory='$signatory',remarks='$remarks' WHERE document_id = '$doc_id'");
+        $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',interval='$interval', user_id='$userid',units='$unit',pac_mw='$pac',tac_ceneco='$tac',bid_offer='$bid', bcq_nom='$bcq',dispatched='$dispatched',cap_dispatch='$cd',foh='$foh', mq = '$mq', revenue='$revenue', remarks='$remarks' WHERE document_id = '$doc_id'");
        
           if(!isset($counterX) || $counterX == ''){
             $ctrx = $counter;

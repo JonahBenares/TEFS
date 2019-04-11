@@ -7,14 +7,21 @@
     	$docid=$_GET['docid'];
     	$get_details = $con->query("SELECT * FROM document_info WHERE document_id = '$docid'");
     	$fetch_details = $get_details->fetch_array();
-    	$typeid=$fetch_details['type_id'];
-        $locationid=$fetch_details['location_id'];
+    	$interval=$fetch_details['interval'];
+        $units=$fetch_details['units'];
         $compid=$fetch_details['company_id'];
 
-    	$dept=$fetch_details['department_id'];
-    	$doctype=getInfo($con, 'type_name', 'document_type', 'type_id', $typeid);
-        $docloc=getInfo($con, 'location_name', 'document_location', 'location_id', $locationid);
-        $copytype=$fetch_details['copy_type'];
+    	$pac_mw=$fetch_details['pac_mw'];
+    	$tac_ceneco=$fetch_details['tac_ceneco'];
+        $bid_offer=$fetch_details['bid_offer'];
+        //getInfo($con, 'location_name', 'document_location', 'location_id', $locationid);
+        $bcq_nom=$fetch_details['bcq_nom'];
+        $dispatched=$fetch_details['dispatched'];
+        $cap_dispatch=$fetch_details['cap_dispatch'];
+        $foh=$fetch_details['foh'];
+        $mq=$fetch_details['mq'];
+        $revenue=$fetch_details['revenue'];
+        $remarks=$fetch_details['remarks'];
         $confidential=$fetch_details['confidential'];
         $uid=$fetch_details['user_id'];
 
@@ -50,6 +57,27 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="js/jquery.js"></script> 
+
+<script type="text/javascript">
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        var number = el.value.split('.');
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        //just one dot (thanks ddlab)
+        if(number.length>1 && charCode == 46){
+             return false;
+        }
+        //get the carat position
+        var caratPos = getSelectionStart(el);
+        var dotPos = el.value.indexOf(".");
+        if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
+            return false;
+        }
+        return true;
+    }
+</script>
 <script>
 	function showFileSize() {
         var input, file;
@@ -126,59 +154,95 @@
             frm.append('company', company);
             var doc_date =document.getElementById('doc_date').value;
             frm.append('doc_date', doc_date);
-            var location =document.getElementById('location').value;
-            frm.append('location', location);
-            var doc_type =document.getElementById('doc_type').value;
-            frm.append('doc_type', doc_type);
-            var department =document.getElementById('department').value;
-            frm.append('department', department);
-            var subject =document.getElementById('subject').value;
-            frm.append('subject', subject);
-            var sender_comp =document.getElementById('sender_comp').value;
-            frm.append('sender_comp', sender_comp);
-            var sender_person =document.getElementById('sender_person').value;
-            frm.append('sender_person', sender_person);
-            var add_comp =document.getElementById('add_comp').value;
-            frm.append('add_comp', add_comp);
-            var add_person =document.getElementById('add_person').value;
-            frm.append('add_person', add_person);
-            var signatory =document.getElementById('signatory').value;
-            frm.append('signatory', signatory);
-            var copy_type = $("input[name='copy_type']:checked").val();
-            frm.append('copy_type', copy_type);
-            var confidential = $("input[name='confidential']:checked").val();
-            frm.append('confidential', confidential);
-            var share1 =document.getElementById('shareuser1').value;
-            frm.append('share1', share1);
-            var share2 =document.getElementById('shareuser2').value;
-            frm.append('share2', share2);
-            var share3 =document.getElementById('shareuser3').value;
-            frm.append('share3', share3);
+            var interval =document.getElementById('interval').value;
+            frm.append('interval', interval);
+            var unit =document.getElementById('unit').value;
+            frm.append('unit', unit);
+            var pac =document.getElementById('pac').value;
+            frm.append('pac', pac);
+            var tac =document.getElementById('tac').value;
+            frm.append('tac', tac);
+            var bid =document.getElementById('bid').value;
+            frm.append('bid', bid);
+            var bcq =document.getElementById('bcq').value;
+            frm.append('bcq', bcq);
+            var dispatched =document.getElementById('dispatched').value;
+            frm.append('dispatched', dispatched);
+            var cd =document.getElementById('cd').value;
+            frm.append('cd', cd);
+            var foh =document.getElementById('foh').value;
+            frm.append('foh', foh);
+            var mq =document.getElementById('mq').value;
+            frm.append('mq', mq);
+            var revenue =document.getElementById('revenue').value;
+            frm.append('revenue', revenue);
             var remarks =document.getElementById('remarks').value;
             frm.append('remarks', remarks);      
             if(doc_date==''){
                 $("#doc_date").focus();
                 $("#date_msg").show();
                 $("#date_msg").html("Document date field must not be empty.");
-            } else if(subject==''){
-                $("#subject").focus();
+            } else if(interval==''){
+                $("#interval").focus();
                 $("#date_msg").hide();
-                $("#subj_msg").show();
-                $("#subj_msg").html("Subject field must not be empty.");
-            } else if(typeof copy_type=='undefined'){
-                $("#copy_type").focus();
-                $("#date_msg").hide();
-                $("#subj_msg").hide();
-                $("#copy_msg").show();
-                $("#copy_msg").html("Please choose type of copy.");
-            } else if(typeof confidential=='undefined'){
-                $("#confidential").focus();
-                $("#date_msg").hide();
-                $("#subj_msg").hide();
-                $("#copy_msg").hide();
-                $("#confi_msg").show();
-                $("#confi_msg").html("Is this document confidential or not? Please choose.");
-            }else {
+                $("#int_msg").show();
+                $("#int_msg").html("Interval field must not be empty.");
+            } else if(unit==''){
+                $("#unit").focus();
+                $("#int_msg").hide();
+                $("#unit_msg").show();
+                $("#unit_msg").html("Units field must not be empty.");
+            } else if(pac==''){
+                $("#pac").focus();
+                $("#unit_msg").hide();
+                $("#pac_msg").show();
+                $("#pac_msg").html("Plant Available Capacity(MW) field must not be empty.");
+            } else if(tac==''){
+                $("#tac").focus();
+                $("#pac_msg").hide();
+                $("#tac_msg").show();
+                $("#tac_msg").html("Tender Available Capacity(CENECO) field must not be empty.");
+            } else if(bid==''){
+                $("#bid").focus();
+                $("#tac_msg").hide();
+                $("#bid_msg").show();
+                $("#bid_msg").html("Bid Offer field must not be empty.");
+            } else if(bcq==''){
+                $("#bcq").focus();
+                $("#bid_msg").hide();
+                $("#bcq_msg").show();
+                $("#bcq_msg").html("BCQ Nom. field must not be empty.");
+            } else if(dispatched==''){
+                $("#dispatched").focus();
+                $("#bcq_msg").hide();
+                $("#dis_msg").show();
+                $("#dis_msg").html("Dispatched field must not be empty.");
+            } else if(cd==''){
+                $("#cd").focus();
+                $("#dis_msg").hide();
+                $("#cd_msg").show();
+                $("#cd_msg").html("Capacity Dispatch field must not be empty.");
+            } else if(foh==''){
+                $("#foh").focus();
+                $("#cd_msg").hide();
+                $("#foh_msg").show();
+                $("#foh_msg").html("Capacity Dispatch field must not be empty.");
+            } else if(mq==''){
+                $("#mq").focus();
+                $("#foh_msg").hide();
+                $("#mq_msg").show();
+                $("#mq_msg").html("MQ field must not be empty.");
+            } else if(revenue==''){
+                $("#revenue").focus();
+                $("#mq_msg").hide();
+                $("#rev_msg").show();
+                $("#rev_msg").html("Revenue field must not be empty.");
+            } else if(remarks==''){
+                $("#remarks").focus();
+                $("#rev_msg").hide();
+                $("#rem_msg").show();
+                $("#rem_msg").html("Remarks field must not be empty.");
+            }  else {
                  $('#content').hide();
                 document.getElementById("loader").style.display = "block";
                 $.ajax({
@@ -230,7 +294,7 @@
 		});
     });
 </script>
-<script>
+<!-- <script>
     $(document).ready(function(){
         $("#doc_type").keyup(function(){
             $.ajax({
@@ -271,7 +335,7 @@
         $("#location").val(val);
         $("#suggestion-location").hide();
     }
-</script>
+</script> -->
 <style type="text/css">
     .modal{
         display: none; /* Hidden by default */
@@ -412,13 +476,15 @@
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Interval:</label>
-                                                <input type="text" autosuggest='off' name = "location" id="location" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $docloc : ''); ?>"><!-- <span id="suggestion-location"></span> -->
+                                                <input type="text" autosuggest='off' onkeypress="return isNumberKey(event)" name = "interval" id="interval" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval : ''); ?>">
+                                                <div id='int_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Units:</label>
-                                                <input type="text" autosuggest='off' name = "location" id="location" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $docloc : ''); ?>"><!-- <span id="suggestion-location"></span> -->
+                                                <input type="text" autosuggest='off' name = "unit" id="unit" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $units : ''); ?>">
+                                                <div id='unit_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -426,21 +492,22 @@
         								<div class="col-lg-4">
         									<div class="form-group label-floating">
         	                                    <label class="control-label">Plant Available Capacity(MW):</label>
-        	                                    <input type="text" autocomplete=""  name = "subject" id="subject" class="form-control" style="width:100%"  value="<?php echo (isset($_GET['docid']) ? $fetch_details['subject'] : ''); ?>" >
-                                                 <div id='subj_msg' class='err_msg'></div>
+        	                                    <input type="text" autocomplete=""  name = "pac" id="pac" class="form-control" style="width:100%"  value="<?php echo (isset($_GET['docid']) ? $pac_mw : ''); ?>" >
+                                                 <div id='pac_msg' class='err_msg'></div>
         	                                </div>  
                                         </div>    
                                         <div class="col-lg-4">                          
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Tender Available Capacity(CENECO):</label>
-                                                <input type="text"  autosuggest='off' name = "doc_type" id="doc_type" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $doctype : ''); ?>">
-                                                <!-- <span id="suggestion-type"></span> -->
+                                                <input type="text"  autosuggest='off' name = "tac" id="tac" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $tac_ceneco : ''); ?>">
+                                                <div id='tac_msg' class='err_msg'></div>
                                             </div>
                                         </div>    
                                         <div class="col-lg-4">
         	                                <div class="form-group label-floating">
         	                                    <label class="control-label">Bid Offer:</label>
-        	                                    <input type="text" name = "signatory" id="signatory" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $fetch_details['signatory'] : ''); ?>">
+        	                                    <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
+                                                <div id='bid_msg' class='err_msg'></div>
         	                                </div>	                                	
         								</div>
                                     </div>
@@ -448,19 +515,22 @@
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BCQ Nom.:</label>
-                                                <input type="text"  autosuggest='off' name = "" id="" class="form-control" style="width:100%" >
+                                                <input type="text"  autosuggest='off' name = "bcq" id="bcq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bcq_nom : ''); ?>">
+                                                <div id='bcq_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Dispatched:</label>
-                                                <input type="text"  autosuggest='off' name = "" id="" class="form-control" style="width:100%" >
+                                                <input type="text"  autosuggest='off' name = "dispatched" id="dispatched" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $dispatched : ''); ?>">
+                                                <div id='dis_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Capacity Dispatch(MW):</label>
-                                                <input type="text"  autosuggest='off' name = "" id="" class="form-control" style="width:100%" >
+                                                <input type="text"  autosuggest='off' name = "cd" id="cd" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $cap_dispatch : ''); ?>">
+                                                <div id='cd_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -468,19 +538,22 @@
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">FOH:</label>
-                                                <input type="text"  autosuggest='off' name = "" id="" class="form-control" style="width:100%" >
+                                                <input type="text"  autosuggest='off' name = "foh" id="foh" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $foh : ''); ?>">
+                                                <div id='foh_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">MQ:</label>
-                                                <input type="text"  autosuggest='off' name = "" id="" class="form-control" style="width:100%" >
+                                                <input type="text"  autosuggest='off' name = "mq" id="mq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $mq : ''); ?>">
+                                                <div id='mq_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Revenue:</label>
-                                                <input type="text"  autosuggest='off' name = "" id="" class="form-control" style="width:100%" >
+                                                <input type="text"  autosuggest='off' name = "revenue" id="revenue" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $revenue : ''); ?>">
+                                                <div id='rev_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -488,7 +561,8 @@
                                         <div class="col-lg-12">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Remarks:</label>
-                                                <textarea type="text" rows="5" name = "remarks" id="remarks" class="form-control" style="width:100%" ><?php echo (isset($_GET['docid']) ? $fetch_details['remarks'] : ''); ?></textarea>
+                                                <textarea type="text" rows="5" name = "remarks" id="remarks" class="form-control" style="width:100%" ><?php echo (isset($_GET['docid']) ? $remarks : ''); ?></textarea>
+                                                <div id='rem_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -603,7 +677,7 @@
 </body>
 
 </html>
-<script>   
+<!-- <script>   
     function check_confi(){
        var confi = $('input[name=confidential]:checked', '#myForm').val();
        if(confi=='Yes'){
@@ -612,7 +686,7 @@
         $('#shareUser').hide();
        }
     }
-</script>
+</script> -->
 <script type="text/javascript">
     function closeModal() {          
             var count=document.getElementById('counter').value;
