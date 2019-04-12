@@ -306,81 +306,65 @@ function compAdd() {
                 </div>   
                 <?php $get_company = mysqli_query($con, "SELECT * FROM company ORDER BY company_name ASC"); ?>
                 <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Company:</label>
+                    <label class="">Unit:</label>
                     <select class="form-control" name = "comp" >
-                        <option value = "" selected>-Select Company-</option>
+                        <option value = "" selected>-Select Unit-</option>
                          <?php while($fetch_company = $get_company->fetch_array()){ ?> 
                         <option value = "<?php echo $fetch_company['company_id']; ?>"><?php echo $fetch_company['company_name']; ?></option>
                         <?php } ?>
                     </select>
                 </div>
 
-                <?php $get_location = mysqli_query($con, "SELECT * FROM document_location ORDER BY location_name ASC"); ?>
-                <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Document Location:</label>
-                    <select class="form-control" name = "docloc" >
-                        <option value = "" selected>-Select Location-</option>
-                         <?php while($fetch_location = $get_location->fetch_array()){ ?> 
-                        <option value = "<?php echo $fetch_location['location_id']; ?>"><?php echo $fetch_location['location_name']; ?></option>
-                        <?php } ?>
-                    </select>
+                 <div class="form-group label-floating hr_nomarg2">
+                    <label class="">Units</label>
+                    <input class="form-control" name = "units" >
+                   
                 </div>
-                <?php $get_type = mysqli_query($con, "SELECT * FROM document_type ORDER BY type_name ASC"); ?>
+
                 <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Document Type:</label>
-                    <select class="form-control" name = "doctype" >
-                        <option value = "" selected>-Select Document Type-</option>
-                         <?php while($fetch_type = $get_type->fetch_array()){ ?> 
-                        <option value = "<?php echo $fetch_type['type_id']; ?>"><?php echo $fetch_type['type_name']; ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <?php $getdept = mysqli_query($con, "SELECT * FROM department ORDER BY department_name ASC"); ?>
-                <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Department</label>
-                    <select class="form-control" name = "dept" >
-                         <option value = "" selected>-Select Department-</option>s
-                         <?php while($fetchdept = $getdept->fetch_array()){ ?> 
-                        <option value = "<?php echo $fetchdept['department_id']; ?>"><?php echo $fetchdept['department_name']; ?></option>
-                        <?php } ?>
-                    </select>
-                    <div id="errorBox3"></div>
-                </div>
-                <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Subject</label>
-                    <input class="form-control" name = "subj" >
+                    <label class="">Interval</label>
+                    <input class="form-control" name = "interval" >
                    
                 </div>
                 <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Signatory</label>
-                    <input class="form-control" name = "sign">
+                    <label class="">Plant Available Capacity(MW)</label>
+                    <input class="form-control" name = "pac">
                 </div>
                 <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Sender Information</label>
-                    <input class="form-control" name = "send">
+                    <label class="">Tender Available Capacity(CENECO)</label>
+                    <input class="form-control" name = "tac">
                 </div>
                 <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Addressee Information</label>
-                    <input class="form-control" name = "add">
+                    <label class="">Bid Offer</label>
+                    <input class="form-control" name = "bid">
                 </div>
                 <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Type of Copy:</label>
-                    <input type='radio' name = "copytype" value='Original'> Original
-                    <input type='radio' name = "copytype" value='Copy'> Copy
+                    <label class="">BCQ Nom.</label>
+                    <input type='text' class="form-control" name = "bcq">
                 </div>
                  <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Confidential:</label>
-                    <input type='radio' name = "confidential" value='Yes'> Yes
-                    <input type='radio' name = "confidential" value='No'> No
+                    <label class="">Dispatched</label>
+                    <input type='text' class="form-control" name = "dispatched">
                 </div>
                  <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Filed Via:</label>
-                    <input type='radio' name = "via" value='1'> Email
-                    <input type='radio' name = "via" value='2'> Encoded
+                    <label class="">Capacity Dispatch:</label>
+                    <input type='text' class="form-control" name = "cd">
+                </div>
+                <div class="form-group label-floating hr_nomarg2">
+                    <label class="">FOH</label>
+                    <input class="form-control" name = "foh" >
+                </div>
+                <div class="form-group label-floating hr_nomarg2">
+                    <label class="">MQ</label>
+                    <input class="form-control" name = "mq" >
+                </div>
+                <div class="form-group label-floating hr_nomarg2">
+                    <label class="">Revenue</label>
+                    <input class="form-control" name = "revenue" >
                 </div>
                 <div class="form-group label-floating hr_nomarg2">
                     <label class="">Remarks</label>
-                    <input class="form-control" name = "notes" >
+                    <input class="form-control" name = "remarks" >
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value='Submit' name='search_doc'>

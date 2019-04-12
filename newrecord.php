@@ -7,25 +7,24 @@
     	$docid=$_GET['docid'];
     	$get_details = $con->query("SELECT * FROM document_info WHERE document_id = '$docid'");
     	$fetch_details = $get_details->fetch_array();
-    	$interval=$fetch_details['interval'];
+    	$interval1=$fetch_details['interval_hr'];
         $units=$fetch_details['units'];
         $compid=$fetch_details['company_id'];
-
+        $control_no1=$fetch_details['control_no'];
     	$pac_mw=$fetch_details['pac_mw'];
     	$tac_ceneco=$fetch_details['tac_ceneco'];
         $bid_offer=$fetch_details['bid_offer'];
         //getInfo($con, 'location_name', 'document_location', 'location_id', $locationid);
         $bcq_nom=$fetch_details['bcq_nom'];
-        $dispatched=$fetch_details['dispatched'];
+        $dispatched1=$fetch_details['dispatched'];
         $cap_dispatch=$fetch_details['cap_dispatch'];
-        $foh=$fetch_details['foh'];
-        $mq=$fetch_details['mq'];
-        $revenue=$fetch_details['revenue'];
-        $remarks=$fetch_details['remarks'];
-        $confidential=$fetch_details['confidential'];
+        $foh1=$fetch_details['foh'];
+        $mq1=$fetch_details['mq'];
+        $revenue1=$fetch_details['revenue'];
+        $remarks1=$fetch_details['remarks'];
         $uid=$fetch_details['user_id'];
 
-        $query = mysqli_query($con,"SELECT * FROM document_info WHERE document_id = '$docid'");
+        /*$query = mysqli_query($con,"SELECT * FROM document_info WHERE document_id = '$docid'");
         $row = mysqli_fetch_array($query);
         $shared=getShared($con,$userid,$docid);
                             
@@ -35,7 +34,7 @@
             if($confidential == 'Yes' && ($shared==0 && $uid != $userid)){
                 echo "<script>alert('You are not allowed to view this document.'); window.location='viewrecord.php';</script>";
             }  
-        }
+        }*/
     }
     else $docid=NULL; 
     if(isset($_GET['deleteattach'])){
@@ -57,27 +56,6 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="js/jquery.js"></script> 
-
-<script type="text/javascript">
-    function isNumberKey(evt){
-        var charCode = (evt.which) ? evt.which : event.keyCode;
-        var number = el.value.split('.');
-        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        //just one dot (thanks ddlab)
-        if(number.length>1 && charCode == 46){
-             return false;
-        }
-        //get the carat position
-        var caratPos = getSelectionStart(el);
-        var dotPos = el.value.indexOf(".");
-        if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
-            return false;
-        }
-        return true;
-    }
-</script>
 <script>
 	function showFileSize() {
         var input, file;
@@ -152,6 +130,8 @@
             } 
             var company =document.getElementById('company').value;
             frm.append('company', company);
+            var control_no =document.getElementById('control_no').value;
+            frm.append('control_no', control_no);
             var doc_date =document.getElementById('doc_date').value;
             frm.append('doc_date', doc_date);
             var interval =document.getElementById('interval').value;
@@ -177,11 +157,16 @@
             var revenue =document.getElementById('revenue').value;
             frm.append('revenue', revenue);
             var remarks =document.getElementById('remarks').value;
-            frm.append('remarks', remarks);      
+            frm.append('remarks', remarks);     
             if(doc_date==''){
                 $("#doc_date").focus();
                 $("#date_msg").show();
                 $("#date_msg").html("Document date field must not be empty.");
+            } else if(control_no==''){
+                $("#control_no").focus();
+                $("#date_msg").hide();
+                $("#cont_msg").show();
+                $("#cont_msg").html("Control No. field must not be empty.");
             } else if(interval==''){
                 $("#interval").focus();
                 $("#date_msg").hide();
@@ -243,7 +228,7 @@
                 $("#rem_msg").show();
                 $("#rem_msg").html("Remarks field must not be empty.");
             }  else {
-                 $('#content').hide();
+                $('#content').hide();
                 document.getElementById("loader").style.display = "block";
                 $.ajax({
                     type: 'POST',
@@ -277,7 +262,7 @@
         var ii = document.getElementById('counter').value;        
 		$('#addActivity').live('click', function() {
             ii++;           
-		    $('<div class = "acti'+ii+'"><div class="row"><div for="p_certs" class="col-lg-2"></div><div class="col-lg-4"><input type="file" name="attach_file'+ii+'" id="p_acti'+ii+'" class="btn btn-sm btn-normal " style="width:100%" ><div id="certBox'+ii+'" class="acti"></div></div><div for = "name_certs" class="col-lg-4"><select type="name" name="attach_name'+ii+'" id="attach_name'+ii+'" class="form-control" style="width:100%;height:35px;margin-bottom:5px;" placeholder="Remarks"><option>sad</option><option>das</option></select></div><div class="col-lg-2"><a href="#" class="btn btn-primary btn-sm btn-fill" id="addActivity">+</a> || <a href="#" class="btn btn-danger btn-sm btn-fill" id="remActivity">x</a></div></div></div>').appendTo(activityDiv);
+		    $('<div class = "acti'+ii+'"><div class="row"><div for="p_certs" class="col-lg-2"></div><div class="col-lg-4"><input type="file" name="attach_file'+ii+'" id="p_acti'+ii+'" class="btn btn-sm btn-normal " style="width:100%" ><div id="certBox'+ii+'" class="acti"></div></div><div for = "name_certs" class="col-lg-4"><select type="name" name="attach_name'+ii+'" id="attach_name'+ii+'" class="form-control" style="width:100%;height:35px;margin-bottom:5px;" placeholder="Remarks"><option value ="">--Select Remarks--</option><option value ="Control Number">Control Number</option><option value ="Date">Date</option><option value ="Interval">Interval</option><option value ="Units">Units</option><option value ="Plant Available Capacity(MW)">Plant Available Capacity(MW)</option><option value ="Tender Available Capacity(CENECO)">Tender Available Capacity(CENECO)</option><option value ="Bid Offer">Bid Offer</option><option value ="BCQ Nom.">BCQ Nom.</option><option value ="Dispatched">Dispatched</option><option value ="Capactiy Dispatch">Capactiy Dispatch</option><option value ="FOH">FOH</option><option value ="MQ">MQ</option><option value ="Revenue">Revenue</option><option value ="Remarks">Remarks</option></select></div><div class="col-lg-2"><a href="#" class="btn btn-primary btn-sm btn-fill" id="addActivity">+</a> || <a href="#" class="btn btn-danger btn-sm btn-fill" id="remActivity">x</a></div></div></div>').appendTo(activityDiv);
 		    
                document.getElementById("counterX").value = ii;
                
@@ -293,6 +278,34 @@
             return false;
 		});
     });
+</script>
+<script type="text/javascript">
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        var number = el.value.split('.');
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        //just one dot (thanks ddlab)
+        if(number.length>1 && charCode == 46){
+             return false;
+        }
+        //get the carat position
+        var caratPos = getSelectionStart(el);
+        var dotPos = el.value.indexOf(".");
+        if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
+            return false;
+        }
+        return true;
+    }
+
+    function isNumKey(evt){
+        var charCode1 = (evt.which) ? evt.which : event.keyCode
+        if (charCode1 > 31 && (charCode1 < 48 || charCode1 > 57))
+        return false;
+
+        return true;
+    }
 </script>
 <!-- <script>
     $(document).ready(function(){
@@ -447,7 +460,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Control Number:</label>
+                                                <label class="control-label">Unit:</label>
                                                 <?php if(!empty($_GET['company'])) { ?>
                                                 <span style='color:#8f39ff; font-size:18px; font-weight:bold'><?php echo getInfo($con, 'company_name', 'company', 'company_id', $_GET['company']); ?></span>
                                                 <input type = "hidden" name = "company" id='company' value='<?php echo $_GET['company']; ?>'>
@@ -475,93 +488,100 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
+                                                <label class="control-label">Control No:</label>
+                                                <input type="text" name = "control_no" id="control_no" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $control_no1 : ''); ?>">
+                                                <div id='cont_msg' class='err_msg'></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group label-floating">
                                                 <label class="control-label">Interval:</label>
-                                                <input type="text" autosuggest='off' onkeypress="return isNumberKey(event)" name = "interval" id="interval" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval : ''); ?>">
+                                                <input type="text" autosuggest='off' onkeypress="return isNumKey(event)" name = "interval" id="interval" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>">
                                                 <div id='int_msg' class='err_msg'></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">  
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Units:</label>
                                                 <input type="text" autosuggest='off' name = "unit" id="unit" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $units : ''); ?>">
                                                 <div id='unit_msg' class='err_msg'></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">    
+                                        </div>  
         								<div class="col-lg-4">
         									<div class="form-group label-floating">
         	                                    <label class="control-label">Plant Available Capacity(MW):</label>
-        	                                    <input type="text" autocomplete=""  name = "pac" id="pac" class="form-control" style="width:100%"  value="<?php echo (isset($_GET['docid']) ? $pac_mw : ''); ?>" >
+        	                                    <input type="text" autocomplete="" onkeypress="return isNumKey(event)"  name = "pac" id="pac" class="form-control" style="width:100%"  value="<?php echo (isset($_GET['docid']) ? $pac_mw : ''); ?>" >
                                                  <div id='pac_msg' class='err_msg'></div>
         	                                </div>  
                                         </div>    
                                         <div class="col-lg-4">                          
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Tender Available Capacity(CENECO):</label>
-                                                <input type="text"  autosuggest='off' name = "tac" id="tac" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $tac_ceneco : ''); ?>">
+                                                <input type="text"  autosuggest='off' onkeypress="return isNumKey(event)" name = "tac" id="tac" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $tac_ceneco : ''); ?>">
                                                 <div id='tac_msg' class='err_msg'></div>
                                             </div>
                                         </div>    
-                                        <div class="col-lg-4">
-        	                                <div class="form-group label-floating">
-        	                                    <label class="control-label">Bid Offer:</label>
-        	                                    <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
-                                                <div id='bid_msg' class='err_msg'></div>
-        	                                </div>	                                	
-        								</div>
                                     </div>
                                     <div class="row">
+                                         <div class="col-lg-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Bid Offer:</label>
+                                                <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
+                                                <div id='bid_msg' class='err_msg'></div>
+                                            </div>                                      
+                                        </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BCQ Nom.:</label>
-                                                <input type="text"  autosuggest='off' name = "bcq" id="bcq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bcq_nom : ''); ?>">
+                                                <input type="text"  autosuggest='off' onkeypress="return isNumKey(event)" name = "bcq" id="bcq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bcq_nom : ''); ?>">
                                                 <div id='bcq_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Dispatched:</label>
-                                                <input type="text"  autosuggest='off' name = "dispatched" id="dispatched" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $dispatched : ''); ?>">
+                                                <input type="text"  autosuggest='off' name = "dispatched" id="dispatched" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $dispatched1 : ''); ?>">
                                                 <div id='dis_msg' class='err_msg'></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Capacity Dispatch(MW):</label>
-                                                <input type="text"  autosuggest='off' name = "cd" id="cd" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $cap_dispatch : ''); ?>">
-                                                <div id='cd_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
+                                                <label class="control-label">Capacity Dispatch(MW):</label>
+                                                <input type="text"  autosuggest='off' name = "cd" id="cd" onkeypress="return isNumKey(event)" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $cap_dispatch : ''); ?>">
+                                                <div id='cd_msg' class='err_msg'></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group label-floating">
                                                 <label class="control-label">FOH:</label>
-                                                <input type="text"  autosuggest='off' name = "foh" id="foh" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $foh : ''); ?>">
+                                                <input type="text"  autosuggest='off' name = "foh" id="foh" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $foh1 : ''); ?>">
                                                 <div id='foh_msg' class='err_msg'></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">MQ:</label>
-                                                <input type="text"  autosuggest='off' name = "mq" id="mq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $mq : ''); ?>">
+                                                <input type="text"  autosuggest='off' onkeypress="return isNumKey(event)" name = "mq" id="mq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $mq1 : ''); ?>">
                                                 <div id='mq_msg' class='err_msg'></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class ="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Revenue:</label>
-                                                <input type="text"  autosuggest='off' name = "revenue" id="revenue" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $revenue : ''); ?>">
+                                                <input type="text"  autosuggest='off' name = "revenue" id="revenue" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $revenue1 : ''); ?>">
                                                 <div id='rev_msg' class='err_msg'></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-8">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Remarks:</label>
-                                                <textarea type="text" rows="5" name = "remarks" id="remarks" class="form-control" style="width:100%" ><?php echo (isset($_GET['docid']) ? $remarks : ''); ?></textarea>
+                                                <textarea type="text" rows="5" name = "remarks" id="remarks" class="form-control" style="width:100%" ><?php echo (isset($_GET['docid']) ? $remarks1 : ''); ?></textarea>
                                                 <div id='rem_msg' class='err_msg'></div>
                                             </div>
                                         </div>
@@ -582,7 +602,21 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <select  name="attach_name1" id="attach_name1" class="form-control" style="width:100%;height:35px;margin-bottom:5px;" placeholder="Remarks" > 
-                                                        <option>halo</option>
+                                                        <option value ="">--Select Remarks--</option>
+                                                        <option value ="Control Number">Control Number</option>
+                                                        <option value ="Date">Date</option>
+                                                        <option value ="Interval">Interval</option>
+                                                        <option value ="Units">Units</option>
+                                                        <option value ="Plant Available Capacity(MW)">Plant Available Capacity(MW)</option>
+                                                        <option value ="Tender Available Capacity(CENECO)">Tender Available Capacity(CENECO)</option>
+                                                        <option value ="Bid Offer">Bid Offer</option>
+                                                        <option value ="BCQ Nom.">BCQ Nom.</option>
+                                                        <option value ="Dispatched">Dispatched</option>
+                                                        <option value ="Capactiy Dispatch">Capactiy Dispatch</option>
+                                                        <option value ="FOH">FOH</option>
+                                                        <option value ="MQ">MQ</option>
+                                                        <option value ="Revenue">Revenue</option>
+                                                        <option value ="Remarks">Remarks</option>
                                                     </select>
                                                     <input type = "hidden" value = "1" id = "counter" name = "counter">
                                                 </div>                         
@@ -631,7 +665,21 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <select name="attach_name<?php echo $r; ?>" id="attach_name<?php echo $r; ?>" class="form-control" style="width:100%;height:35px;margin-bottom:5px;" > 
-                                                        <option value="<?php echo $fetch_attach['attach_remarks']; ?>" ><?php echo $fetch_attach['attach_remarks']; ?></option>
+                                                        <option value ="">--Select Remarks--</option>
+                                                        <option value ="Control Number" <?php echo (($fetch_attach['attach_remarks'] == 'Control Number') ? ' selected' : ''); ?>>Control Number</option>
+                                                        <option value ="Date" <?php echo (($fetch_attach['attach_remarks'] == 'Date') ? ' selected' : ''); ?>>Date</option>
+                                                        <option value ="Interval" <?php echo (($fetch_attach['attach_remarks'] == 'Interval') ? ' selected' : ''); ?>>Interval</option>
+                                                        <option value ="Units" <?php echo (($fetch_attach['attach_remarks'] == 'Units') ? ' selected' : ''); ?>>Units</option>
+                                                        <option value ="Plant Available Capacity(MW)" <?php echo (($fetch_attach['attach_remarks'] == 'Plant Available Capacity(MW)') ? ' selected' : ''); ?>>Plant Available Capacity(MW)</option>
+                                                        <option value ="Tender Available Capacity(CENECO)" <?php echo (($fetch_attach['attach_remarks'] == 'Tender Available Capacity(CENECO)') ? ' selected' : ''); ?>>Tender Available Capacity(CENECO)</option>
+                                                        <option value ="Bid Offer" <?php echo (($fetch_attach['attach_remarks'] == 'Bid Offer') ? ' selected' : ''); ?>>Bid Offer</option>
+                                                        <option value ="BCQ Nom." <?php echo (($fetch_attach['attach_remarks'] == 'BCQ Nom.') ? ' selected' : ''); ?>>BCQ Nom.</option>
+                                                        <option value ="Dispatched" <?php echo (($fetch_attach['attach_remarks'] == 'Dispatched') ? ' selected' : ''); ?>>Dispatched</option>
+                                                        <option value ="Capactiy Dispatch" <?php echo (($fetch_attach['attach_remarks'] == 'Capactiy Dispatch') ? ' selected' : ''); ?>>Capactiy Dispatch</option>
+                                                        <option value ="FOH" <?php echo (($fetch_attach['attach_remarks'] == 'FOH') ? ' selected' : ''); ?>>FOH</option>
+                                                        <option value ="MQ" <?php echo (($fetch_attach['attach_remarks'] == 'MQ') ? ' selected' : ''); ?>>MQ</option>
+                                                        <option value ="Revenue" <?php echo (($fetch_attach['attach_remarks'] == 'Revenue') ? ' selected' : ''); ?>>Revenue</option>
+                                                        <option value ="Remarks" <?php echo (($fetch_attach['attach_remarks'] == 'Remarks') ? ' selected' : ''); ?>>Remarks</option>
                                                     </select>
                                                 </div>                                
                                                 <div class="col-lg-2">

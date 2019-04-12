@@ -34,59 +34,58 @@
 	 	$sql.=" company_id = '$comp' AND";
 	 }
 
-	 if(!empty($docloc)){
-	 	$sql.=" location_id = '$docloc' AND";
-	 }
-
-	 if(!empty($doctype)){
-	 	$sql.=" type_id = '$doctype' AND";
-	 }
-
-	 if(!empty($dept)){
-	 	$sql.=" department_id = '$dept' AND";
-	 }
-
-	 if(!empty($subj)){
-	 	$sql.=" subject LIKE '%$subj%' AND";
+	 if(!empty($units)){
+	 	$sql.=" units LIKE '%$units%' AND";
 		
 	 }
 
-	 if(!empty($sign)){
-	 		$sql.=" signatory LIKE '%$sign%' AND";
-	 }
-
-	 if(!empty($copytype)){
-	 		$sql.=" copy_type = '$copytype' AND";
-	 }
-
-	 if(!empty($confidential)){
-	 		$sql.=" confidential = '$confidential' AND";
-	 }
-
-	 if(!empty($send)){
-	 	$sql.=" (sender_company LIKE '%$send%' OR sender_person LIKE '%$send%' OR email_sender LIKE '%$send%') AND";
-	 }
-
-	 if(!empty($add)){
-	 	$sql.=" (addressee_company LIKE '%$add%' OR addressee_person LIKE '%$add%') AND";
+	 if(!empty($interval)){
+	 	$sql.=" interval_hr LIKE '%$interval%' AND";
 		
 	 }
 
-	 if(!empty($notes)){
-	 	$sql.=" remarks LIKE '%$notes%' AND";
-		
+	 if(!empty($pac)){
+	 		$sql.=" pac_mw LIKE '%$pac%' AND";
 	 }
 
-	  if(!empty($via)){
-	  	if($via==1) $v=1;
-	  	else $v=0;
-	 	$sql.=" email_attach = '$v' AND";
-	  }
+	 if(!empty($tac)){
+	 		$sql.=" tac_ceneco LIKE '%$tac%' AND";
+	 }
+
+	 if(!empty($bid)){
+	 		$sql.=" bid_offer LIKE '%$bid%' AND";
+	 }
+
+	 if(!empty($bcq)){
+	 	$sql.=" bcq_nom LIKE '%$bcq%' AND";
+	 }
+
+	 if(!empty($dispatched)){
+	 	$sql.=" dispatched LIKE '%$dispatched%' AND";
+	 }
+
+	 if(!empty($cd)){
+	 	$sql.=" cap_dispatch LIKE '%$cd%' AND";
+	 }
+
+	 if(!empty($foh)){
+	 	$sql.=" foh LIKE '%$foh%' AND";
+	 }
+
+	 if(!empty($mq)){
+	 	$sql.=" mq LIKE '%$mq%' AND";
+	 }
+
+	 if(!empty($revenue)){
+	 	$sql.=" revenue LIKE '%$revenue%' AND";
+	 }
+
+	 if(!empty($remarks)){
+	 	$sql.=" remarks LIKE '%$remarks%' AND";
+		
+	 }
 
 	$query=substr($sql,0,-3);
-
-	//echo $query;
-
 	$searchHead=$con->query($query);
 	$rows_head = $searchHead->num_rows;
 	if($rows_head != 0){
@@ -94,7 +93,6 @@
 			$docid[] = $fetchHead['document_id'];
 		}
  	}
- //	print_r($logid);
  	return array_unique($docid);
 }
 
@@ -118,63 +116,153 @@ function filtersApplied($con, $post){
 	 	$filter.='Company = ' . getInfo($con, 'company_name', 'company', 'company_id' ,$comp). ', ';
 	 }
 
-	if(!empty($docloc)){
-	 	$filter.='Location = ' . getInfo($con, 'location_name', 'document_location', 'location_id' ,$docloc). ', ';
-	 }
-	 
-	 if(!empty($doctype)){
-	 	$filter.='Document Type = ' . getInfo($con, 'type_name', 'document_type', 'type_id' ,$doctype). ', ';
+	 if(!empty($units)){
+	 	$filter.='Units = ' . $units. ', ';
 	 }
 
-	 if(!empty($dept)){
-	 	$filter.='Department = ' . getInfo($con, 'department_name', 'department', 'department_id' ,$dept). ', ';
+	 if(!empty($interval)){
+	 	$filter.='Interval = ' . $interval. ', ';
 	 }
 
-	 if(!empty($subj)){
+	 if(!empty($pac)){
 
-	 	$filter.='Subject = ' . $subj. ', ';
+	 	$filter.='Plant Available Capacity(MW) = ' . $pac. ', ';
 	 }
 
-	  if(!empty($sign)){
+	  if(!empty($tac)){
 
-	 	$filter.='Signatory = ' . $sign. ', ';
+	 	$filter.='Tender Available Capacity(CENECO) = ' . $tac. ', ';
 	 }
 
-	 if(!empty($copytype)){
+	 if(!empty($bid)){
 
-	 	$filter.='Type of Copy = ' . $copytype. ', ';
+	 	$filter.='Bid Offer = ' . $bid. ', ';
 	 }
 
-	 if(!empty($confidential)){
+	 if(!empty($bcq)){
 
-	 	$filter.='Confidential = ' . $confidential. ', ';
+	 	$filter.='BCQ Nom. = ' . $bcq. ', ';
 	 }
 
-	 if(!empty($send)){
+	 if(!empty($dispatched)){
 
-	 	$filter.='Sender Info = ' . $send. ', ';
+	 	$filter.='Dispactched = ' . $dispatched. ', ';
 	 }
 
-	 if(!empty($add)){
+	 if(!empty($cd)){
 
-	 	$filter.='Addressee Info = ' . $add. ', ';
+	 	$filter.='Capacity Dispatch(MW) = ' . $cd. ', ';
 	 }
 
+	 if(!empty($foh)){
 
-	 if(!empty($notes)){
-	 	$filter.='Remarks = ' . $notes. ', ';
+	 	$filter.='FOH = ' . $foh. ', ';
 	 }
 
-	 if(!empty($via)){
-	 	if($via==1) $a=' email';
-	 	else $a = ' encoded';
-	 	$filter.='Filed via = ' . $a. ', ';
+	 if(!empty($mq)){
+
+	 	$filter.='MQ = ' . $mq. ', ';
 	 }
 
+	 if(!empty($revenue)){
+
+	 	$filter.='Revenue = ' . $revenue. ', ';
+	 }
+
+	 if(!empty($remarks)){
+	 	$filter.='Remarks = ' . $remarks. ', ';
+	 }
 
 	 $fil = substr($filter, 0, -2);
 	 return $fil;
 }
+
+
+function printURL($con, $post){
+	foreach($post as $var=>$value)
+		$$var = mysqli_real_escape_string($con,$value);
+
+	$url='';
+
+	if(!empty($doc_from)){
+	 	if(!empty($doc_to)){
+			$url.='datefrom='.$doc_from.'&dateto='.$doc_to.'& ';
+		 } else {
+	 		$url.='datefrom='.$doc_from.'&';
+	 	}
+	 }
+	 
+	 if(!empty($comp)){
+	 	$url.='compid='.$comp.'&';
+	 }
+
+	 if(!empty($units)){
+	 	$url.='unit='.$units.'&';
+	 }
+
+	 if(!empty($interval)){
+	 	$url.='interval='.$interval.'&';
+	 }
+
+	 if(!empty($pac)){
+
+	 	$url.='pac='.$pac.'&';
+	 }
+
+	  if(!empty($tac)){
+
+	 	$url.='tac='.$tac.'&';
+	 }
+
+	 if(!empty($bid)){
+
+	 	$url.='bid='.$bid.'&';
+	 }
+
+	 if(!empty($bcq)){
+
+	 	$url.='bcq='.$bcq.'&';
+	 }
+
+	 if(!empty($dispatched)){
+
+	 	$url.='disp='.$dispatched.'&';
+	 }
+
+	 if(!empty($cd)){
+
+	 	$url.='cd='.$cd.'&';
+	 }
+
+	 if(!empty($foh)){
+
+	 	$url.='foh='.$foh.'&';
+	 }
+
+	 if(!empty($mq)){
+
+	 	$url.='mq='.$mq.'&';
+	 }
+
+	 if(!empty($revenue)){
+
+	 	$url.='revenue='.$revenue.'&';
+	 }
+
+	 if(!empty($remarks)){
+	 	$url.='remarks='.$remarks.'&';
+	 }
+
+
+	 if(substr($url, 0, -1) == '&'){
+	 	$url = substr($url, 0, -1);
+	 } else {
+	 	$url = $url;
+	 }
+	 return $url;
+
+}
+
 function companyCount($con, $company){
 	$select = $con->query("SELECT company_id FROM document_info WHERE company_id = '$company'");
 	$rows=$select->num_rows;
