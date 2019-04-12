@@ -86,21 +86,7 @@
 														while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
-<<<<<<< HEAD
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddsad asdasdasd</td>
-													<td>asddasd</td>
-													<td>asdd asdasd asdas d   asdasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
-=======
+
 													<td><?php echo $row['control_no'];?></td>
 													<td><?php echo $row['document_date'];?></td>
 													<td><?php echo $row['interval_hr'];?></td>
@@ -120,7 +106,6 @@
 															<i class = "fa fa-edit"></i>
 														</a>
 													</td>
->>>>>>> bb10a815dbf195306d7384cae0c67178829da827
 												</tr>
 												<?php } } ?>
 											</tbody>
