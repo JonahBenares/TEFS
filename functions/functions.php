@@ -113,7 +113,7 @@ function filtersApplied($con, $post){
 	 }
 	 
 	 if(!empty($comp)){
-	 	$filter.='Company = ' . getInfo($con, 'company_name', 'company', 'company_id' ,$comp). ', ';
+	 	$filter.='Unit = ' . getInfo($con, 'company_name', 'company', 'company_id' ,$comp). ', ';
 	 }
 
 	 if(!empty($units)){
