@@ -34,7 +34,17 @@
 	    text-shadow: 2px 2px 4px #0c0c0c; 
 	}
 	.panel-heading-back{
-		background:#009e2a!important;
+		background:#8f39ff!important;
+	}
+	.btn-secondary {
+		background:#8f39ff!important;
+		border: 1px solid #b380f5;
+		color: #fff;
+	}
+	.btn-secondary:hover {
+		background:#a77cde!important;
+		border: 1px solid #b380f5;
+		color: #fff!important;
 	}
 </style>
 <body class="body-background">
@@ -42,7 +52,7 @@
 		<br>
 		<br>
 		<center>
-			<h1 class="h2-class"><span style="color:#009e2a">ENERGREEN</span> ELECTRONIC</h1>
+			<h1 class="h2-class"><span style="color:#8f39ff">TRADING</span> ELECTRONIC</h1>
 			<h1 class="h2-class">FILING SYSTEM</h1>
 		</center>
 		<br>
@@ -61,7 +71,7 @@
 								<div class="form-group">
 									<input class="form-control" placeholder="Password" name="password" type="password" value="">
 								</div>	
-								<input type="submit" name = "login" id = "login" class="btn btn-primary width-class" value="Login">					
+								<input type="submit" name = "login" id = "login" class="btn btn-secondary width-class" value="Login">					
 							</fieldset>
 						</form>
 					</div>

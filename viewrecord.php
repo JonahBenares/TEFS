@@ -54,7 +54,7 @@
 													<th>Date</th>
 													<th>Interval</th>
 													<th>Units</th>
-													<th>Plant Available Capacity(MW)</th>
+													<th><span style="width: 50px!important">Plant Available Capacity(MW)</span></th>
 													<th>Tender Available Capacity(Ceneco)</th>
 													<th>Bid Offer</th>
 													<th>BCQ Nom.</th>
@@ -69,9 +69,9 @@
 												<tr>
 													<td>asddasd</td>
 													<td>asddasd</td>
+													<td>asddsad asdasdasd</td>
 													<td>asddasd</td>
-													<td>asddasd</td>
-													<td>asddasd</td>
+													<td>asdd asdasd asdas d   asdasd</td>
 													<td>asddasd</td>
 													<td>asddasd</td>
 													<td>asddasd</td>
