@@ -47,8 +47,9 @@ $userid= $_SESSION['userid'];
       }*/
    		
    		$now = date('Y-m-d H:i:s');
-        $insert= $con->query("INSERT INTO document_info(document_id ,logged_date,document_date,company_id,interval,user_id,units,pac_mw,tac_ceneco,bid_offer, bcq_nom,dispatched, cap_dispatch, foh, mq, revenue,remarks) VALUES ('$docid','$now','$doc_date','$company','$interval','$userid','$unit','$pac','$tac','$bid','$bcq','$dispatched','$cd','$foh', '$mq','$revenue','$remarks')");
-    
+        $insert= $con->query("INSERT INTO document_info(document_id ,logged_date,document_date,company_id,interval_hr,control_no,user_id,units,pac_mw,tac_ceneco,bid_offer, bcq_nom,dispatched, cap_dispatch, foh, mq, revenue,remarks) VALUES ('$docid','$now','$doc_date','$company','$interval','$control_no','$userid','$unit','$pac','$tac','$bid','$bcq','$dispatched','$cd','$foh', '$mq','$revenue','$remarks')");
+
+        echo $insert;
         /*for($x=1;$x<=3;$x++){
             $share='share'.$x;
             $suser = $$share;
@@ -124,24 +125,13 @@ $userid= $_SESSION['userid'];
       }*/
 
     	$now = date('Y-m-d H:i:s');
-        $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',interval='$interval', user_id='$userid',units='$unit',pac_mw='$pac',tac_ceneco='$tac',bid_offer='$bid', bcq_nom='$bcq',dispatched='$dispatched',cap_dispatch='$cd',foh='$foh', mq = '$mq', revenue='$revenue', remarks='$remarks' WHERE document_id = '$doc_id'");
+        $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',interval_hr='$interval',control_no='$control_no', user_id='$userid',units='$unit',pac_mw='$pac',tac_ceneco='$tac',bid_offer='$bid', bcq_nom='$bcq',dispatched='$dispatched',cap_dispatch='$cd', foh='$foh', mq = '$mq', revenue='$revenue', remarks='$remarks' WHERE document_id = '$doc_id'");
        
-          if(!isset($counterX) || $counterX == ''){
+        if(!isset($counterX) || $counterX == ''){
             $ctrx = $counter;
         } 
         else{
             $ctrx = $counterX;
-        }
-        
-        if($con->query("DELETE FROM shared_document WHERE document_id = '$doc_id'")){
-           for($x=1;$x<=3;$x++){
-          $share='share'.$x;
-          $suser = $$share;
-          if(!empty($suser)){
-              $insertshare= $con->query("INSERT INTO shared_document(document_id, user_id) VALUES ('$doc_id', '$suser')");
-          }
-         }
-
         }
         
 
