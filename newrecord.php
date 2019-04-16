@@ -239,14 +239,15 @@
                     cache: false,
                     success: function(output){
                         var output= output.trim();
-                        if(output=='ext'){
+                        alert(output);
+                        /*if(output=='ext'){
                             alert('Error: File extension error.')
                         } else if(output=='error'){
                          alert('Error: There was an error in uploading your files.')
                         } else {
                             alert('Record successfully updated!');
                             window.location = 'viewrecord.php';
-                        }
+                        }*/
                     }
                 }); 
             }
@@ -456,7 +457,7 @@
     					</div>
     					<div class="panel-body">
     						<div class="row">
-    							<form style="margin:0px 50px 0px 50px" id='myForm'>
+    							<form style="margin:0px 50px 0px 50px" id='myForm' enctype="multipart/form-data" method = "POST">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="form-group label-floating">

@@ -3,7 +3,7 @@ include 'includes/connection.php';
 date_default_timezone_set("Asia/Taipei");
 session_start();
 $userid= $_SESSION['userid'];
-
+$timestamp =  date("YmdHis");
     foreach($_POST as $var=>$value)
     $$var = mysqli_real_escape_string($con,$value);
 	
@@ -12,52 +12,8 @@ $userid= $_SESSION['userid'];
    	    $sql5 = mysqli_query($con,"SELECT MAX(document_id) as docid From document_info");
         $fetch = $sql5->fetch_array();
         $docid = $fetch['docid']+1;
-
-   		/*$get_type = $con->query("SELECT type_id FROM document_type WHERE type_name = '$doc_type'");
-
-   		$rows_type = $get_type->num_rows;
-   		if($rows_type==0){
-   			$get_exist =  $con->query("SELECT MAX(type_id) as typeid FROM document_type");
-   			$fetch_exist = $get_exist->fetch_array();
-   			$typeid = $fetch_exist['typeid'] + 1;
-
-   			$insert_type = $con->query("INSERT INTO document_type (type_id, type_name) VALUES ('$typeid', '$doc_type')");
-   		} else {
-   			$fetch_type = $get_type->fetch_array();
-   			$typeid = $fetch_type['type_id'];
-
-   		}
-
-
-
-      $get_location = $con->query("SELECT location_id FROM document_location WHERE location_name = '$location'");
-     // echo "SELECT location_id FROM document_location WHERE location_name = '$location'";
-      
-      $rows_location = $get_location->num_rows;
-      if($rows_location==0){
-        $get_exist1 =  $con->query("SELECT MAX(location_id) as locationid FROM document_location");
-        $fetch_exist1 = $get_exist1->fetch_array();
-        $locationid = $fetch_exist1['locationid'] + 1;
-
-        $insert_location = $con->query("INSERT INTO document_location (location_id, location_name) VALUES ('$locationid', '$location')");
-      } else {
-        $fetch_location = $get_location->fetch_array();
-        $locationid = $fetch_location['location_id'];
-
-      }*/
-   		
    		$now = date('Y-m-d H:i:s');
         $insert= $con->query("INSERT INTO document_info(document_id ,logged_date,document_date,company_id,interval_hr,control_no,user_id,units,pac_mw,tac_ceneco,bid_offer, bcq_nom,dispatched, cap_dispatch, foh, mq, revenue,remarks) VALUES ('$docid','$now','$doc_date','$company','$interval','$control_no','$userid','$unit','$pac','$tac','$bid','$bcq','$dispatched','$cd','$foh', '$mq','$revenue','$remarks')");
-
-        echo $insert;
-        /*for($x=1;$x<=3;$x++){
-            $share='share'.$x;
-            $suser = $$share;
-            if(!empty($suser)){
-                $insertshare= $con->query("INSERT INTO shared_document(document_id, user_id) VALUES ('$docid', '$suser')");
-            }
-        }*/
-
         
         if(!isset($counterX) || $counterX == ''){
             $ctrx = $counter;
@@ -78,9 +34,9 @@ $userid= $_SESSION['userid'];
                 if($ext=='php'){
                   echo "ext";
                 } else { 
-                  $afile = $subject."_".$userid.$x.".".$ext;
+                  $afile = $aname."_".$timestamp."_".$userid.$x.".".$ext;
                   //$url = "upload/" . $afile;
-                  move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/" . $afile);
+                  move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/".$afile);
                   $filename = $_FILES["attach_file".$x]["tmp_name"];
                   $update=mysqli_query($con,"INSERT INTO document_attach (document_id,attach_file,attach_remarks) VALUES ('$docid','$afile','$aname')");
                     if($update){
@@ -93,36 +49,6 @@ $userid= $_SESSION['userid'];
             }
         }  
     } else {
-
-    	/*$get_type = $con->query("SELECT type_id FROM document_type WHERE type_name = '$doc_type'");
-
-   		$rows_type = $get_type->num_rows;
-   		if($rows_type==0){
-   			$get_exist =  $con->query("SELECT MAX(type_id) as typeid FROM document_type");
-   			$fetch_exist = $get_exist->fetch_array();
-   			$typeid = $fetch_exist['typeid'] + 1;
-
-   			$insert_type = $con->query("INSERT INTO document_type (type_id, type_name) VALUES ('$typeid', '$doc_type')");
-   		} else {
-   			$fetch_type = $get_type->fetch_array();
-   			$typeid = $fetch_type['type_id'];
-
-   		}
-
-      $get_location = $con->query("SELECT location_id FROM document_location WHERE location_name = '$location'");
-
-      $rows_location = $get_location->num_rows;
-      if($rows_location==0){
-        $get_exist1 =  $con->query("SELECT MAX(location_id) as locationid FROM document_location");
-        $fetch_exist1 = $get_exist1->fetch_array();
-        $locationid = $fetch_exist1['locationid'] + 1;
-
-        $insert_location = $con->query("INSERT INTO document_location (location_id, location_name) VALUES ('$locationid', '$location')");
-      } else {
-        $fetch_location = $get_location->fetch_array();
-        $locationid = $fetch_location['location_id'];
-
-      }*/
 
     	$now = date('Y-m-d H:i:s');
         $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',interval_hr='$interval',control_no='$control_no', user_id='$userid',units='$unit',pac_mw='$pac',tac_ceneco='$tac',bid_offer='$bid', bcq_nom='$bcq',dispatched='$dispatched',cap_dispatch='$cd', foh='$foh', mq = '$mq', revenue='$revenue', remarks='$remarks' WHERE document_id = '$doc_id'");
@@ -155,8 +81,8 @@ $userid= $_SESSION['userid'];
                     if($ext=='php'){
                       echo "ext";
                     } else {
-                      $afile = $subject."_".$userid.$x.".".$ext;
-                      move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/" . $afile);
+                      $afile = $aname."_".$timestamp."_".$userid.$x.".".$ext;
+                      move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/".$afile);
                       //  $url = "upload/" . $afile;
                         $filename = $_FILES["attach_file".$x]["tmp_name"];
                         $update=mysqli_query($con,"UPDATE document_attach SET attach_file = '$afile', attach_remarks='$aname' WHERE attach_id='$attachid'");
@@ -192,7 +118,7 @@ $userid= $_SESSION['userid'];
                    
                     $a = explode(".", $act); //attach file
                     $ext = $a[1];
-                    $afile = $subject."_".$userid.$x.".".$ext;
+                    $afile = $aname."_".$timestamp."_".$userid.$x.".".$ext;
 
                     $getex=$con->query("SELECT attach_id FROM document_attach WHERE attach_id = '$attachid'");
                     $rowex=$getex->num_rows;
@@ -200,7 +126,7 @@ $userid= $_SESSION['userid'];
                           if($ext=='php'){
                             echo "ext";
                           } else {
-                          move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/" . $afile);
+                          move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/".$afile);
                            // $url = "upload/" . $afile;
                             $filename = $_FILES["attach_file".$x]["tmp_name"];
                             $update=mysqli_query($con,"UPDATE document_attach SET attach_file = '$afile', attach_remarks='$aname' WHERE attach_id='$attachid'");
@@ -215,7 +141,7 @@ $userid= $_SESSION['userid'];
                       if($ext=='php'){
                             echo "ext";
                       } else {
-                           move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/" . $afile);
+                           move_uploaded_file($_FILES['attach_file'.$x]['tmp_name'], "upload/".$afile);
                            // $url = "upload/" . $afile;
                             $filename = $_FILES["attach_file".$x]["tmp_name"];
                             $update=mysqli_query($con,"INSERT INTO document_attach (document_id,attach_file,attach_remarks) VALUES ('$doc_id','$afile','$aname')");

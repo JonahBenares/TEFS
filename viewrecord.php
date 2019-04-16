@@ -15,6 +15,111 @@
 	  	<figure class="two">loading</figure>
 	</div>
  -->
+ 	<script type="text/javascript">
+ 		function viewContNum(docid){
+	        window.open('attachment_contnum.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewDate(docid){
+	        window.open('attachment_date.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewInt(docid){
+	        window.open('attachment_int.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewUnits(docid){
+	        window.open('attachment_units.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewPac(docid){
+	        window.open('attachment_pac.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewTac(docid){
+	        window.open('attachment_tac.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewBid(docid){
+	        window.open('attachment_bid.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewBcq(docid){
+	        window.open('attachment_bcq.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewDis(docid){
+	        window.open('attachment_dis.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewCap(docid){
+	        window.open('attachment_cap.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewFoh(docid){
+	        window.open('attachment_foh.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewMq(docid){
+	        window.open('attachment_mq.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewRev(docid){
+	        window.open('attachment_rev.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+	    function viewRem(docid){
+	        window.open('attachment_rem.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	    }
+
+ 	</script>
+ 	<style type="text/css">
+ 		/* Popup box BEGIN */
+		.hover_bkgr_fricc{
+		    background:rgba(0,0,0,.4);
+		    cursor:pointer;
+		    display:none;
+		    height:100%;
+		    position:fixed;
+		    text-align:center;
+		    top:0;
+		    width:100%;
+		    z-index:10000;
+		}
+		.hover_bkgr_fricc .helper{
+		    display:inline-block;
+		    height:100%;
+		    vertical-align:middle;
+		}
+		.hover_bkgr_fricc > div {
+		    background-color: #fff;
+		    box-shadow: 10px 10px 60px #555;
+		    display: inline-block;
+		    height: auto;
+		    max-width: 551px;
+		    min-height: 100px;
+		    vertical-align: middle;
+		    width: 60%;
+		    position: relative;
+		    border-radius: 8px;
+		    padding: 15px 5%;
+		}
+		.popupCloseButton {
+		    background-color: #fff;
+		    border: 3px solid #999;
+		    border-radius: 50px;
+		    cursor: pointer;
+		    display: inline-block;
+		    font-family: arial;
+		    font-weight: bold;
+		    position: absolute;
+		    top: -20px;
+		    right: -20px;
+		    font-size: 25px;
+		    line-height: 30px;
+		    width: 30px;
+		    height: 30px;
+		    text-align: center;
+		}
+		.popupCloseButton:hover {
+		    background-color: #ccc;
+		}
+		.trigger_popup_fricc {
+		    cursor: pointer;
+		    font-size: 20px;
+		    margin: 20px;
+		    display: inline-block;
+		    font-weight: bold;
+		}
+		/* Popup box BEGIN */
+ 	</style>
 	<div id="contents" style="display: block">	
 		<div class="col-lg-12">
 			<div class="main">
@@ -86,7 +191,7 @@
 														while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
-
+													
 													<td><?php echo $row['control_no'];?></td>
 													<td><?php echo $row['document_date'];?></td>
 													<td><?php echo $row['interval_hr'];?></td>
@@ -132,30 +237,34 @@
 											<tbody>
 												<?php 
 													$sql = mysqli_query($con,"SELECT * FROM document_info ORDER BY document_id ASC");
+													$r = 1;
 													while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
-													<td><?php echo $row['control_no'];?></td>
-													<td><?php echo $row['document_date'];?></td>
-													<td><?php echo $row['interval_hr'];?></td>
-													<td><?php echo $row['units'];?></td>
-													<td><?php echo $row['pac_mw'];?></td>
-													<td><?php echo $row['tac_ceneco'];?></td>
-													<td><?php echo $row['bid_offer'];?></td>
-													<td><?php echo $row['bcq_nom'];?></td>
-													<td><?php echo $row['dispatched'];?></td>
-													<td><?php echo $row['cap_dispatch'];?></td>
-													<td><?php echo $row['foh'];?></td>
-													<td><?php echo $row['mq'];?></td>
-													<td><?php echo $row['revenue'];?></td>
-													<td><?php echo $row['remarks'];?></td>
+													<td>
+														<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
+													</td>
+													<td><a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a></td>
+													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['interval_hr'];?></a></td>
+													<td><a onClick="viewUnits(<?php echo $row['document_id'];?>)"><?php echo $row['units'];?></a></td>
+													<td><a onClick="viewPac(<?php echo $row['document_id'];?>)"><?php echo $row['pac_mw'];?></a></td>
+													<td><a onClick="viewTac(<?php echo $row['document_id'];?>)"><?php echo $row['tac_ceneco'];?></a></td>
+													<td><a onClick="viewBid(<?php echo $row['document_id'];?>)"><?php echo $row['bid_offer'];?></a></td>
+													<td><a onClick="viewBcq(<?php echo $row['document_id'];?>)"><?php echo $row['bcq_nom'];?></a></td>
+													<td><a onClick="viewDis(<?php echo $row['document_id'];?>)"><?php echo $row['dispatched'];?></a></td>
+													<td><a onClick="viewCap(<?php echo $row['document_id'];?>)"><?php echo $row['cap_dispatch'];?></a></td>
+													<td><a onClick="viewFoh(<?php echo $row['document_id'];?>)"><?php echo $row['foh'];?></a></td>
+													<td><a onClick="viewMq(<?php echo $row['document_id'];?>)"><?php echo $row['mq'];?></a></td>
+													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
+													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
 														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-sm">
 															<i class = "fa fa-edit"></i>
 														</a>
 													</td>
 												</tr>
-												<?php } ?>
+												<?php $r++; } ?>
+												<input type = "hidden" name = "counter" id = "counter" value = "<?php echo $r; ?>">
 											</tbody>
 											<?php } ?>
 										</table>
@@ -171,5 +280,17 @@
 	</div>
 </body>
 <?php include('scripts.php');?>
-
+<script type="text/javascript">
+	$(window).load(function () {
+		$(".trigger_popup_fricc").click(function(){
+		   $(".hover_bkgr_fricc").show();
+		});
+		$(".hover_bkgr_fricc").click(function(){
+		    $(".hover_bkgr_fricc").hide();
+		});
+		$(".popupCloseButton").click(function(){
+		    $(".hover_bkgr_fricc").hide();
+		});
+	});
+</script>
 </html>
