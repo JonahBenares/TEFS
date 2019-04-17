@@ -124,12 +124,12 @@
 										<h3 style="font-weight:600"><small>RECORD PER</small><br> UNIT</h3>
 									</center>
 									<hr class="list-hr-yellow">
-									<!-- <ul class="todo-list">
+									<ul class="todo-list">
 										<?php 
 											$query1 = mysqli_query($con, "SELECT * FROM company ORDER BY company_name ASC");
 											while($fetch = mysqli_fetch_array($query1)){
 										?>
-										<a href='viewrecord.php?companyid=<?php echo $fetch['company_id']; ?>'>
+										<a href='viewrecord.php?unit=<?php echo $fetch['company_id']; ?>'>
 										<li class="todo-list-item">
 											<div class="checkbox ">										
 												<label class="dbrd-list" ><?php echo $fetch['company_name'];?></label>
@@ -140,7 +140,7 @@
 										</li></a>
 										<?php } ?>
 										</li>
-									</ul> -->
+									</ul>
 								</div>
 								<div class="col-sm-12 col-md-6 col-lg-3 border-right">
 									<center>

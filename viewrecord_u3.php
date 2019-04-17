@@ -182,7 +182,7 @@
 													<th>MQ</th>
 													<th>Revenue</th>
 													<th>Remarks</th>
-													<th><span class="fa fa-bars"></span></th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -208,7 +208,7 @@
 													<td><?php echo $row['revenue'];?></td>
 													<td><?php echo $row['remarks'];?></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-sm">
 															<i class = "fa fa-edit"></i>
 														</a>
 													</td>
@@ -232,12 +232,12 @@
 													<th>MQ</th>
 													<th>Revenue</th>
 													<th>Remarks</th>
-													<th><span class="fa fa-bars"></span></th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php 
-													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '$_GET[unit]' ORDER BY document_id ASC");
+													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '3' ORDER BY document_id ASC");
 													$r = 1;
 													while($row = mysqli_fetch_array($sql)){
 												?>
@@ -259,7 +259,7 @@
 													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
 													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-sm">
 															<i class = "fa fa-edit"></i>
 														</a>
 													</td>
