@@ -17,46 +17,46 @@
  -->
  	<script type="text/javascript">
  		function viewContNum(docid){
-	        window.open('attachment_contnum.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_contnum.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewDate(docid){
-	        window.open('attachment_date.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_date.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewInt(docid){
-	        window.open('attachment_int.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_int.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewUnits(docid){
-	        window.open('attachment_units.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_units.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewPac(docid){
-	        window.open('attachment_pac.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_pac.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewTac(docid){
-	        window.open('attachment_tac.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_tac.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewBid(docid){
-	        window.open('attachment_bid.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_bid.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewBcq(docid){
-	        window.open('attachment_bcq.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_bcq.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewDis(docid){
-	        window.open('attachment_dis.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_dis.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewCap(docid){
-	        window.open('attachment_cap.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_cap.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewFoh(docid){
-	        window.open('attachment_foh.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_foh.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewMq(docid){
-	        window.open('attachment_mq.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_mq.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewRev(docid){
-	        window.open('attachment_rev.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_rev.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 	    function viewRem(docid){
-	        window.open('attachment_rem.php?id='+docid, '_blank', 'top=100px,left=400px,width=600,height=450');
+	        window.open('attachment_rem.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
 
  	</script>
@@ -142,7 +142,8 @@
 				<div class="col-md-12">
 					<div class="panel panel-default box-shadow">
 						<div class="panel-heading">
-							Record List <small>(Document)</small>
+							Record List <small>(<b>UNIT 1</b>)</small>
+							<?php include('unitbar.php');?>													
 							<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
 							<?php 
 								if(!empty($_POST)){
@@ -181,7 +182,7 @@
 													<th>MQ</th>
 													<th>Revenue</th>
 													<th>Remarks</th>
-													<th>Action</th>
+													<th><span class="fa fa-bars"></span></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -207,7 +208,7 @@
 													<td><?php echo $row['revenue'];?></td>
 													<td><?php echo $row['remarks'];?></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-sm">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
 													</td>
@@ -231,7 +232,7 @@
 													<th>MQ</th>
 													<th>Revenue</th>
 													<th>Remarks</th>
-													<th>Action</th>
+													<th><span class="fa fa-bars"></span></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -258,7 +259,7 @@
 													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
 													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-sm">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
 													</td>

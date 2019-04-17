@@ -5,7 +5,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span></button>
-			<a class="navbar-brand" href="#"><span style="color:#8f39ff;">Trading</span>e-Filing System</a>
+			<a class="navbar-brand" href="dashboard.php"><span style="color:#8f39ff;">Trading</span>e-Filing System</a>
 			<a style = "margin-top:-41px;" class = "btn btn-primary"></a>
 			<ul class="nav navbar-top-links navbar-right">
 				<li class="dropdown">
