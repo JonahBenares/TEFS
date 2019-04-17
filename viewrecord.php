@@ -142,7 +142,7 @@
 				<div class="col-md-12">
 					<div class="panel panel-default box-shadow">
 						<div class="panel-heading">
-							Record List <small>(<b>UNIT 1</b>)</small>
+							Record List <small>(<b><?php echo getInfo($con, 'company_name', 'company', 'company_id' ,$_GET['unit'])?></b>)</small>
 							<?php include('unitbar.php');?>													
 							<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
 							<?php 
@@ -237,7 +237,7 @@
 											</thead>
 											<tbody>
 												<?php 
-													$sql = mysqli_query($con,"SELECT * FROM document_info ORDER BY document_id ASC");
+													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '1' ORDER BY document_id ASC");
 													$r = 1;
 													while($row = mysqli_fetch_array($sql)){
 												?>

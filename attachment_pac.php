@@ -35,10 +35,7 @@
                                                 $att=explode(".",$row1['attach_file']);
                                                 $upload_att = $att[1];
                                             ?>
-                                                <a href="upload/<?php echo $row1['attach_file']; ?>" style = "cursor:pointer;margin-left:10px">
-                                                  <?php echo $row1['attach_file']; ?>
-                                                </a>
-                                                <img src="<?php 
+                                                <embed src="<?php 
                                                     if (empty($row1['attach_file'])){
                                                         echo 'upload/necs/gallery-icon-67820.png'; 
                                                     } else{
@@ -48,7 +45,7 @@
                                                         echo "upload/files.png";
                                                        }
                                                     }
-                                                ?>" style="width:100%">
+                                                ?>" style="width:100%;height:600px;">
                                             <?php } ?>
                                         </div>
                                     </div>

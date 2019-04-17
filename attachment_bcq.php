@@ -30,15 +30,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group label-floating">
                                             <?php 
-                                                $sql2 = mysqli_query($con,"SELECT * FROM document_attach WHERE attach_remarks = 'BCQ Nom.'AND document_id = '$id'");
+                                                $sql2 = mysqli_query($con,"SELECT * FROM document_attach WHERE attach_remarks = 'BCQ Nom' AND document_id = '$id'");
                                                 while($row1 = mysqli_fetch_array($sql2)){
                                                 $att=explode(".",$row1['attach_file']);
                                                 $upload_att = $att[1];
                                             ?>
-                                                <a href="upload/<?php echo $row1['attach_file']; ?>" style = "cursor:pointer;margin-left:10px">
-                                                  <?php echo $row1['attach_file']; ?>
-                                                </a>
-                                                <img src="<?php 
+                                                <embed src="<?php 
                                                     if (empty($row1['attach_file'])){
                                                         echo 'upload/necs/gallery-icon-67820.png'; 
                                                     } else{
@@ -48,7 +45,7 @@
                                                         echo "upload/files.png";
                                                        }
                                                     }
-                                                ?>" style="width:100%">
+                                                ?>" style="width:100%;height:600px;">
                                             <?php } ?>
                                         </div>
                                     </div>

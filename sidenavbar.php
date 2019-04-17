@@ -41,7 +41,7 @@
 			</ul>
 		</li>
 		<li><a href="newrecord_first.php"><em class="fa fa-plus">&nbsp;</em> New Record</a></li>
-		<li><a href="viewrecord.php"><em class="fa fa-eye">&nbsp;</em> View Record</a></li>
+		<li><a href="viewrecord.php?unit=1"><em class="fa fa-eye">&nbsp;</em> View Record</a></li>
 		<?php if($_SESSION['usertype'] == "Admin") { ?>
 			<li><a href="backup_data.php"><em class="fa fa-database">&nbsp;</em> Database</a></li>
 		<?php } ?>
