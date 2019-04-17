@@ -121,10 +121,10 @@
 							<div class="panel-body" style="padding-bottom:50px;">
 								<div class="col-sm-12 col-md-6 col-lg-3 border-right">
 									<center>
-										<h3 style="font-weight:600"><small>RECORD PER</small><br> COMPANY</h3>
+										<h3 style="font-weight:600"><small>RECORD PER</small><br> UNIT</h3>
 									</center>
 									<hr class="list-hr-yellow">
-									<ul class="todo-list">
+									<!-- <ul class="todo-list">
 										<?php 
 											$query1 = mysqli_query($con, "SELECT * FROM company ORDER BY company_name ASC");
 											while($fetch = mysqli_fetch_array($query1)){
@@ -140,14 +140,14 @@
 										</li></a>
 										<?php } ?>
 										</li>
-									</ul>
+									</ul> -->
 								</div>
 								<div class="col-sm-12 col-md-6 col-lg-3 border-right">
 									<center>
 										<h3 style="font-weight:600"><small>RECORD PER</small><br>LOCATION</h3>
 									</center>
 									<hr class="list-hr-red">
-									<ul class="todo-list">
+									<!-- <ul class="todo-list">
 										<?php 
 											$query2 = mysqli_query($con, "SELECT * FROM document_location ORDER BY location_name ASC");
 											while($fetch1 = mysqli_fetch_array($query2)){
@@ -164,14 +164,14 @@
 										</a>
 										<?php } ?>
 										</li>
-									</ul>
+									</ul> -->
 								</div>
 								<div class="col-sm-12 col-md-3 col-lg-3 border-right">
 									<center>
 										<h3 style="font-weight:600"><small>RECORD PER</small><br>DEPARTMENT</h3>
 									</center>
 									<hr class="list-hr-purple">
-									<ul class="todo-list">
+									<!-- <ul class="todo-list">
 										<?php 
 											$query = mysqli_query($con,"SELECT * FROM department ORDER BY department_name ASC");
 											while($row2 = mysqli_fetch_array($query)){
@@ -187,14 +187,14 @@
 											</li>
 										</a>
 										<?php } ?>
-									</ul>
+									</ul> -->
 								</div>
 								<div class="col-sm-12 col-md-3 col-lg-3">
 									<center>
 										<h3 style="font-weight:600"><small>RECORD PER</small><br> DOCUMENT TYPE</h3>
 									</center>
 									<hr class="list-hr-blue">
-									<ul class="todo-list">
+									<!-- <ul class="todo-list">
 										<?php 
 											$query1 = mysqli_query($con, "SELECT * FROM document_type ORDER BY type_name ASC");
 											while($fetch = mysqli_fetch_array($query1)){
@@ -211,7 +211,7 @@
 										</a>
 										<?php } ?>
 										</li>
-									</ul>
+									</ul> -->
 								</div>
 								
 							</div>
