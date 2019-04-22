@@ -1,13 +1,13 @@
 <?php
 //include 'functions/functions.php';
-backup_tables('localhost','root','1t@dm1N','db_filing');
+backup_tables('localhost','root','','db_tefs');
 
 $now=date('Y-m-d');
 
 $host='localhost';
 $user='root';
-$pass='1t@dm1N';
-$name='db_filing';
+$pass='';
+$name='db_tefs';
 function backup_tables($host,$user,$pass,$name,$tables = '*')
 {
 
@@ -61,7 +61,7 @@ fwrite($handle,$return);
 
 
 $copysql='Back-up/db_backup/'.$data;
-rcopy($copysql , "C:\Users\/WINDOWS 10\/OneDrive\/EEFS October 2018\DB\/".$data);
+rcopy($copysql , "C:\Users\Stephine\Desktop\Backup_TEFS\/DB\/".$data);
 
 fclose($handle);
 
@@ -135,7 +135,7 @@ $zip->close();
 
 //rcopy($fname , 'Back-up/uploads/'.$fname );
 $zipname=date('m_d_Y').'.zip';
-rcopy($fname , "C:\Users\/WINDOWS 10\/OneDrive\/EEFS October 2018\Uploads\/".$zipname);
+rcopy($fname , "C:\Users\Stephine\Desktop\Backup_TEFS\/uploads\/".$zipname);
 
 
 //rrmdir($fname);
