@@ -167,7 +167,7 @@
 										<table class="table  table-hover table-bordered" id="tbl_record" >
 											<?php 
 												if(isset($_POST['search_doc'])){
-													echo "Filters Applied: ".filtersApplied($con, $_POST) . " <a href='$_SERVER[PHP_SELF]' style='color:red; font-size:11px'>Remove filter</a><br><br>";
+													echo "Filters Applied: ".filtersApplied($con, $_POST) . " <a href='viewrecord.php?unit=$_GET[unit]' style='color:red; font-size:11px'>Remove filter</a><br><br>";
 													$docid=filteredSQL($con,$_POST);
 											?>
 											<thead>
