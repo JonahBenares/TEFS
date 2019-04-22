@@ -35,17 +35,17 @@
                                                 $att=explode(".",$row1['attach_file']);
                                                 $upload_att = $att[1];
                                             ?>
-                                                <embed src="<?php 
+                                                <iframe src="<?php 
                                                     if (empty($row1['attach_file'])){
                                                         echo 'upload/necs/gallery-icon-67820.png'; 
                                                     } else{
-                                                        if($upload_att == 'jpg' || $upload_att == 'png' || $upload_att == 'jpeg' || $upload_att == 'PNG' || $upload_att == 'JPG' || $upload_att == 'JPEG' || $upload_att == 'pdf' || $upload_att == 'PDF'){
+                                                        if($upload_att == 'jpg' || $upload_att == 'png' || $upload_att == 'jpeg' || $upload_att == 'PNG' || $upload_att == 'JPG' || $upload_att == 'JPEG' || $upload_att == 'pdf' || $upload_att == 'PDF' || $upload_att == 'xlsx' || $upload_att == 'docx'){
                                                         echo 'upload/'. $row1['attach_file']; 
                                                        } else {
                                                         echo "upload/files.png";
                                                        }
                                                     }
-                                                ?>" style="width:100%;height:600px;">
+                                                ?>" style="width:100%;height:600px;"></iframe>
                                             <?php } ?>
                                         </div>
                                     </div>
