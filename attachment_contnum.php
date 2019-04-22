@@ -30,14 +30,14 @@
                                     <div class="col-md-12">
                                         <div class="form-group label-floating">
                                             <?php 
-                                                $sql2 = mysqli_query($con,"SELECT * FROM document_attach WHERE attach_remarks = 'Control Number' AND document_id = '$id'");
+                                                $sql2 = mysqli_query($con,"SELECT * FROM document_attach WHERE attach_remarks = 'Control Number'AND document_id = '$id'");
                                                 while($row1 = mysqli_fetch_array($sql2)){
                                                 $att=explode(".",$row1['attach_file']);
                                                 $upload_att = $att[1];
                                             ?>
-                                                <embed src="<?php 
+                                                <iframe src="<?php 
                                                     if (empty($row1['attach_file'])){
-                                                        echo 'upload/necs/no-image-icon-13.png'; 
+                                                        echo 'upload/necs/gallery-icon-67820.png'; 
                                                     } else{
                                                         if($upload_att == 'jpg' || $upload_att == 'png' || $upload_att == 'jpeg' || $upload_att == 'PNG' || $upload_att == 'JPG' || $upload_att == 'JPEG' || $upload_att == 'pdf' || $upload_att == 'PDF' || $upload_att == 'xlsx' || $upload_att == 'docx'){
                                                         echo 'upload/'. $row1['attach_file']; 
@@ -45,7 +45,7 @@
                                                         echo "upload/files.png";
                                                        }
                                                     }
-                                                ?>" style="width:100%;height:600px;">
+                                                ?>" style="width:100%;height:600px;"></iframe>
                                             <?php } ?>
                                         </div>
                                     </div>

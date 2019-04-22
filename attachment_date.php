@@ -35,7 +35,7 @@
                                                     $att=explode(".",$row1['attach_file']);
                                                     $upload_att = $att[1];
                                                 ?>
-                                                <embed src="<?php 
+                                                <iframe src="<?php 
                                                       if (empty($row1['attach_file'])){
                                                           echo 'upload/necs/gallery-icon-67820.png'; 
                                                       } else{
@@ -45,7 +45,7 @@
                                                             echo "upload/files.png";
                                                            }
                                                       }
-                                                  ?>" style="width:100%;height:600px;">
+                                                  ?>" style="width:100%;height:600px;"></iframe>
                                                 <?php } ?>
                                             </div>
                                         </div>
