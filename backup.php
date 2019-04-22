@@ -61,7 +61,7 @@ fwrite($handle,$return);
 
 
 $copysql='Back-up/db_backup/'.$data;
-rcopy($copysql , "C:\Users\Stephine\Desktop\Backup_TEFS\/DB\/".$data);
+rcopy($copysql , "C:\/Users\/Stephine\/Desktop\/Backup_TEFS\/DB\/".$data);
 
 fclose($handle);
 
@@ -135,7 +135,7 @@ $zip->close();
 
 //rcopy($fname , 'Back-up/uploads/'.$fname );
 $zipname=date('m_d_Y').'.zip';
-rcopy($fname , "C:\Users\Stephine\Desktop\Backup_TEFS\/uploads\/".$zipname);
+rcopy($fname , "C:\/Users\/Stephine\/Desktop\/Backup_TEFS\/uploads\/".$zipname);
 
 
 //rrmdir($fname);
