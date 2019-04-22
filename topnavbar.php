@@ -9,7 +9,7 @@
 			<a style = "margin-top:-41px;" class = "btn btn-primary"></a>
 			<ul class="nav navbar-top-links navbar-right">
 				<li class="dropdown">
-					<a class="dropdown-toggle count-info bg-info" data-toggle="dropdown"  href="backup.php">
+					<a class="dropdown-toggle count-info bg-info" href="backup.php">
 						<em class = "fa fa-download"></em>Back-up Database
 					</a>					
 				</li>
