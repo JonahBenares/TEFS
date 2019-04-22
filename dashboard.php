@@ -38,7 +38,7 @@
 											$row = mysqli_num_rows($sql);
 										?>
 										<div class="panel panel-teal panel-widget" style="padding:10px 0px">
-											<a href = "viewrecord.php" class="large" style="font-size:10vmin"><?php echo $row;?></a>
+											<a href = "viewrecord.php?unit=1" class="large" style="font-size:10vmin"><?php echo $row;?></a>
 											<hr class="" >
 											<div class="overall-text"> Overall Records</div>		
 										</div>
@@ -58,7 +58,7 @@
 											$row = mysqli_num_rows($sql);
 										?>
 										<div class="panel panel-teal panel-widget" style="padding:10px 0px">
-											<a href = "viewrecord.php?type=0" class="large" style="font-size:10vmin"><?php echo $row;?></a>
+											<a href = "viewrecord.php?type=0&unit=1" class="large" style="font-size:10vmin"><?php echo $row;?></a>
 											<hr class="" >
 											<div class="overall-text">Encoded</div>		
 										</div>
@@ -78,7 +78,7 @@
 											$row = mysqli_num_rows($sql);
 										?>
 										<div class="panel panel-teal panel-widget" style="padding:10px 0px">
-											<a href = "viewrecord.php?type=1" class="large" style="font-size:10vmin"><?php echo $row;?></a>
+											<a href = "viewrecord.php?type=1&unit=1" class="large" style="font-size:10vmin"><?php echo $row;?></a>
 											<hr class="" >
 											<div class="overall-text"> Emails</div>		
 										</div>
