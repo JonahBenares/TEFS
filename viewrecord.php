@@ -152,7 +152,11 @@
 							 		$param = '';
 							 	}
 							?>
+							<?php if(!empty($param)){ ?>
 							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?<?php echo $param; ?>"><em class="fa fa-cloud-download"></em></a>
+							<?php } else { ?>
+							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?units=<?php echo $_GET['unit']; ?>"><em class="fa fa-cloud-download"></em></a>
+							<?php } ?>
 							<a class="pull-right  btn-success btn-fill panel-toggle" style="background:#099428;color:white" data-toggle="modal" data-target="#mdl_searchRecord"><em class="fa fa-search"></em></a>
 							<a class="pull-right btn-primary panel-toggle" style="background:#30a5ff;color:white" href="newrecord_first.php"><em class="fa fa-plus"></em></a>					
 						</div>

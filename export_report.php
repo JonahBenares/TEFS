@@ -14,6 +14,10 @@ if(!empty($_GET)){
 		}
 	}
 
+	if(!empty($_GET['units'])){
+		$sql .= " company_id =  '$_GET[units]' AND";
+	}
+
 	if(!empty($_GET['compid'])){
 		$sql .= " company_id =  '$_GET[compid]' AND";
 	}
