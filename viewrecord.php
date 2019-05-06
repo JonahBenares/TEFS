@@ -171,8 +171,7 @@
 													$docid=filteredSQL($con,$_POST);
 											?>
 											<thead>
-												<tr>			
-													<th>Hour</th>
+												<tr>	
 													<th style="width:100px!important">Control No.</th>
 													<th>Date</th>
 													<th>Interval</th>
@@ -201,7 +200,7 @@
 													<td><?php echo $row['hour'];?></td>
 													<td><?php echo $row['control_no'];?></td>
 													<td><?php echo $row['document_date'];?></td>
-													<td><?php echo $row['interval_hr'];?></td>
+													<td><?php echo $row['hour'];?></td>
 													<td><?php echo getInfo($con, 'company_name', 'company', 'company_id' ,$row['company_id']);?></td>
 													<td><?php echo $row['pac_mw'];?></td>
 													<td><?php echo $row['tac_ceneco'];?></td>
@@ -223,8 +222,7 @@
 											</tbody>
 											<?php } else { ?>
 											<thead>
-												<tr>			
-													<th>Hour</th>
+												<tr>
 													<th style="width:100px!important">Control No.</th>
 													<th>Date</th>
 													<th>Interval</th>
@@ -249,12 +247,11 @@
 													while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
-													<td><?php echo $row['hour']?></td>
 													<td>
 														<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
 													</td>
 													<td><a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a></td>
-													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['interval_hr'];?></a></td>
+													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['hour'];?></a></td>
 													<td><a onClick="viewUnits(<?php echo $row['document_id'];?>)"><?php echo getInfo($con, 'company_name', 'company', 'company_id' ,$row['company_id']);?></a></td>
 													<td><a onClick="viewPac(<?php echo $row['document_id'];?>)"><?php echo $row['pac_mw'];?></a></td>
 													<td><a onClick="viewTac(<?php echo $row['document_id'];?>)"><?php echo $row['tac_ceneco'];?></a></td>

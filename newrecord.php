@@ -10,6 +10,7 @@
         $interval1=$fetch_details['interval_hr'];
         $int = explode("-", $interval1);
         $units=$fetch_details['units'];
+        $hour=$fetch_details['hour'];
         $compid=$fetch_details['company_id'];
         $control_no1=$fetch_details['control_no'];
     	$pac_mw=$fetch_details['pac_mw'];
@@ -516,58 +517,47 @@
                                                 <div id='cont_msg' class='err_msg'></div>
                                             </div>
                                         </div>
+                                        <?php if(isset($_GET['docid'])){ ?>
+                                        <div class="col-lg-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Interval:</label>
+                                                <input name = "interval_from" id="interval_from" class="form-control " style = "pointer-events: none" value = '<?php echo $hour;?>'>
+                                                <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
+                                                <div id='int_msg' class='err_msg'></div>
+                                            </div>
+                                        </div>
+                                        <?php } else { ?>
                                         <div class="col-lg-2">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Interval From:</label>
-                                                    <?php if(isset($_GET['docid'])){ ?>
-                                                    <select name = "interval_from" id="interval_from" class="form-control " style = "pointer-events: none">
-                                                        <option value = "">--Select Interval From--</option>
-                                                        <?php
-                                                            for($y=0;$y<=23;$y++){
-                                                        ?>
-                                                        <option value = "<?php echo $y; ?>:00" <?php echo (empty($int[0]) ? '' : (($int[0]==$y) ? 'selected' : '')); ?>><?php echo $y;?>:00</option>
-                                                        <?php } ?>
-                                                    </select>
-                                                    <?php } else { ?>
-                                                    <select name = "interval_from" id="interval_from" class="form-control ">
-                                                        <option value = "">--Select Interval From--</option>
-                                                        <?php
-                                                            for($y=0;$y<=23;$y++){
-                                                        ?>
-                                                        <option value = "<?php echo $y; ?>:00" <?php echo (empty($int[0]) ? '' : (($int[0]==$y) ? 'selected' : '')); ?>><?php echo $y;?>:00</option>
-                                                        <?php } ?>
-                                                    </select>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Interval From:</label>
+                                                <select name = "interval_from" id="interval_from" class="form-control ">
+                                                    <option value = "">--Select Interval From--</option>
+                                                    <?php
+                                                        for($y=0;$y<=23;$y++){
+                                                    ?>
+                                                    <option value = "<?php echo $y; ?>:00" <?php echo (empty($int[0]) ? '' : (($int[0]==$y) ? 'selected' : '')); ?>><?php echo $y;?>:00</option>
                                                     <?php } ?>
-                                                    <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
-                                                    <div id='int_msg' class='err_msg'></div>
-                                                </div>
+                                                </select>
+                                                <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
+                                                <div id='int_msg' class='err_msg'></div>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Interval To:</label>
-                                                    <?php if(isset($_GET['docid'])){ ?>
-                                                    <select name = "interval_to" id="interval_to" class="form-control" style = "pointer-events: none">
-                                                        <option value = "">--Select Interval To--</option>
-                                                        <?php
-                                                            for($x=0;$x<=23;$x++){
-                                                        ?>
-                                                        <option value = "<?php echo $x; ?>:00" <?php echo (empty($int[1]) ? '' : (($int[1]==$x) ? 'selected' : '')); ?>><?php echo $x;?>:00</option>
-                                                        <?php } ?>
-                                                    </select>
-                                                    <?php } else { ?>
-                                                    <select name = "interval_to" id="interval_to" class="form-control">
-                                                        <option value = "">--Select Interval To--</option>
-                                                        <?php
-                                                            for($x=0;$x<=23;$x++){
-                                                        ?>
-                                                        <option value = "<?php echo $x; ?>:00" <?php echo (empty($int[1]) ? '' : (($int[1]==$x) ? 'selected' : '')); ?>><?php echo $x;?>:00</option>
-                                                        <?php } ?>
-                                                    </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Interval To:</label>
+                                                <select name = "interval_to" id="interval_to" class="form-control">
+                                                    <option value = "">--Select Interval To--</option>
+                                                    <?php
+                                                        for($x=0;$x<=23;$x++){
+                                                    ?>
+                                                    <option value = "<?php echo $x; ?>:00"><?php echo $x;?>:00</option>
                                                     <?php } ?>
-                                                    <!-- <input type="text" autosuggest='off' name = "interval_to" id="interval_to" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
-                                                    <div id='into_msg' class='err_msg'></div>
-                                                </div>
+                                                </select>
+                                                <!-- <input type="text" autosuggest='off' name = "interval_to" id="interval_to" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
+                                                <div id='into_msg' class='err_msg'></div>
                                             </div>
+                                        </div>
+                                        <?php } ?>
                                         <!-- <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Units:</label>
