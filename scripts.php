@@ -36,9 +36,10 @@
 	    $('#tbl_company').DataTable({
 	    	"aaSorting": [[ 0, "asc" ]]
 	    });
-	    $('#tbl_record').DataTable({
-	    	"aaSorting": [[ 1, "desc" ]]
-	    });
+	    /*$('#tbl_record').DataTable({
+	    	"aaSorting": [[ 1, "asc" ]],
+	    	"aaSorting": [[ 2, "asc" ]]
+	    });*/
 	    $('#tbl_email').DataTable({
 	    	"aaSorting": [[ 0, "desc" ]]
 	    });

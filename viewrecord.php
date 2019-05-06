@@ -175,7 +175,6 @@
 													<th style="width:100px!important">Control No.</th>
 													<th>Date</th>
 													<th>Interval</th>
-													<th>Units</th>
 													<th><span style="width: 50px!important">Plant Available Capacity(MW)</span></th>
 													<th>Tender Available Capacity(Ceneco)</th>
 													<th>Bid Offer</th>
@@ -192,7 +191,7 @@
 											<tbody>
 												<?php 
 													foreach($docid AS $id){
-														$sql = mysqli_query($con,"SELECT * FROM document_info WHERE document_id = '$id' ORDER BY document_id ASC");
+														$sql = mysqli_query($con,"SELECT * FROM document_info WHERE document_id = '$id' ORDER BY document_date,document_id ASC");
 														while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
@@ -201,7 +200,6 @@
 													<td><?php echo $row['control_no'];?></td>
 													<td><?php echo $row['document_date'];?></td>
 													<td><?php echo $row['hour'];?></td>
-													<td><?php echo getInfo($con, 'company_name', 'company', 'company_id' ,$row['company_id']);?></td>
 													<td><?php echo $row['pac_mw'];?></td>
 													<td><?php echo $row['tac_ceneco'];?></td>
 													<td><?php echo $row['bid_offer'];?></td>
@@ -226,7 +224,6 @@
 													<th style="width:100px!important">Control No.</th>
 													<th>Date</th>
 													<th>Interval</th>
-													<th>Units</th>
 													<th>Plant Available Capacity(MW)</th>
 													<th>Tender Available Capacity(Ceneco)</th>
 													<th>Bid Offer</th>
@@ -242,17 +239,22 @@
 											</thead>
 											<tbody>
 												<?php 
-													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '$_GET[unit]' ORDER BY document_id ASC");
+													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '$_GET[unit]' ORDER BY document_date,document_id ASC");
 													$r = 1;
 													while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
 													<td>
-														<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
+														<?php if($row['hour']=='0100'){ ?>
+															<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
+														<?php } ?>
 													</td>
-													<td><a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a></td>
-													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['hour'];?></a></td>
-													<td><a onClick="viewUnits(<?php echo $row['document_id'];?>)"><?php echo getInfo($con, 'company_name', 'company', 'company_id' ,$row['company_id']);?></a></td>
+													<td>
+														<?php if($row['hour']=='0100'){ ?>
+															<a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a>
+														<?php } ?>
+													</td>
+													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['hour']."H";?></a></td>
 													<td><a onClick="viewPac(<?php echo $row['document_id'];?>)"><?php echo $row['pac_mw'];?></a></td>
 													<td><a onClick="viewTac(<?php echo $row['document_id'];?>)"><?php echo $row['tac_ceneco'];?></a></td>
 													<td><a onClick="viewBid(<?php echo $row['document_id'];?>)"><?php echo $row['bid_offer'];?></a></td>

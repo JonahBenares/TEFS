@@ -476,7 +476,7 @@
     					<div class="panel-heading">
     						<?php echo (isset($_GET['docid']) ? 'Update Record' : 'New Record'); ?>
     						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
-    						<a class="pull-right  btn-primary panel-toggle" style="background:#8f39ff;color:white" href="viewrecord.php"><em class="fa fa-eye"></em></a>
+    						<a class="pull-right  btn-primary panel-toggle" style="background:#8f39ff;color:white" href="viewrecord.php?unit=1"><em class="fa fa-eye"></em></a>
     					</div>
     					<div class="panel-body">
     						<div class="row">
@@ -533,9 +533,15 @@
                                                 <select name = "interval_from" id="interval_from" class="form-control ">
                                                     <option value = "">--Select Interval From--</option>
                                                     <?php
-                                                        for($y=0;$y<=23;$y++){
+                                                        for($y=1;$y<=24;$y++){
+                                                            if($y <= 9){
+                                                                $hr = str_pad($y, '4', '0',STR_PAD_BOTH);
+                                                            }else {
+                                                                $hr = str_pad($y, '4', '0',STR_PAD_RIGHT);
+                                                            }
                                                     ?>
-                                                    <option value = "<?php echo $y; ?>:00" <?php echo (empty($int[0]) ? '' : (($int[0]==$y) ? 'selected' : '')); ?>><?php echo $y;?>:00</option>
+
+                                                    <option value = "<?php echo $y; ?>" ><?php echo $hr;?></option>
                                                     <?php } ?>
                                                 </select>
                                                 <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
@@ -548,9 +554,14 @@
                                                 <select name = "interval_to" id="interval_to" class="form-control">
                                                     <option value = "">--Select Interval To--</option>
                                                     <?php
-                                                        for($x=0;$x<=23;$x++){
+                                                        for($x=1;$x<=24;$x++){
+                                                            if($x <= 9){
+                                                                $hr = str_pad($x, '4', '0',STR_PAD_BOTH);
+                                                            }else {
+                                                                $hr = str_pad($x, '4', '0',STR_PAD_RIGHT);
+                                                            }
                                                     ?>
-                                                    <option value = "<?php echo $x; ?>:00"><?php echo $x;?>:00</option>
+                                                    <option value = "<?php echo $x; ?>"><?php echo $hr;?></option>
                                                     <?php } ?>
                                                 </select>
                                                 <!-- <input type="text" autosuggest='off' name = "interval_to" id="interval_to" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
