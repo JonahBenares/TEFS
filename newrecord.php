@@ -172,19 +172,19 @@
                 $("#date_msg").hide();
                 $("#cont_msg").show();
                 $("#cont_msg").html("Control No. field must not be empty.");
-            } /*else if(interval==''){
-                $("#interval").focus();
-                $("#date_msg").hide();
+            } else if(interval_from==''){
+                $("#interval_from").focus();
+                $("#cont_msg").hide();
                 $("#int_msg").show();
-                $("#int_msg").html("Interval field must not be empty.");
-            } else if(unit==''){
-                $("#unit").focus();
+                $("#int_msg").html("Interval From field must not be empty.");
+            } else if(interval_to==''){
+                $("#interval_to").focus();
                 $("#int_msg").hide();
-                $("#unit_msg").show();
-                $("#unit_msg").html("Units field must not be empty.");
-            }*/ else if(pac==''){
+                $("#into_msg").show();
+                $("#into_msg").html("Interval To field must not be empty.");
+            } else if(pac==''){
                 $("#pac").focus();
-                $("#unit_msg").hide();
+                $("#into_msg").hide();
                 $("#pac_msg").show();
                 $("#pac_msg").html("Plant Available Capacity(MW) field must not be empty.");
             } else if(tac==''){
@@ -192,12 +192,12 @@
                 $("#pac_msg").hide();
                 $("#tac_msg").show();
                 $("#tac_msg").html("Tender Available Capacity(CENECO) field must not be empty.");
-            } /*else if(bid==''){
+            } else if(bid==''){
                 $("#bid").focus();
                 $("#tac_msg").hide();
                 $("#bid_msg").show();
                 $("#bid_msg").html("Bid Offer field must not be empty.");
-            }*/ else if(bcq==''){
+            } else if(bcq==''){
                 $("#bcq").focus();
                 $("#bid_msg").hide();
                 $("#bcq_msg").show();
@@ -565,7 +565,7 @@
                                                     </select>
                                                     <?php } ?>
                                                     <!-- <input type="text" autosuggest='off' name = "interval_to" id="interval_to" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
-                                                    <div id='int_msg' class='err_msg'></div>
+                                                    <div id='into_msg' class='err_msg'></div>
                                                 </div>
                                             </div>
                                         <!-- <div class="col-lg-4">
@@ -591,7 +591,16 @@
                                                 <div id='tac_msg' class='err_msg'></div>
                                             </div>
                                         </div>  
-                                         <div class="col-lg-4">
+                                        <div class="col-lg-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Bid Offer:</label>
+                                                <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
+                                                <div id='bid_msg' class='err_msg'></div>
+                                            </div>                                      
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">BCQ Nom.:</label>
                                                 <input type="text"  autosuggest='off' onkeypress="return isNumberKey(this,event)" name = "bcq" id="bcq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bcq_nom : ''); ?>">
@@ -612,6 +621,8 @@
                                                 <div id='cd_msg' class='err_msg'></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">FOH:</label>
@@ -619,8 +630,6 @@
                                                 <div id='foh_msg' class='err_msg'></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">MQ:</label>
@@ -634,13 +643,6 @@
                                                 <input type="text"  autosuggest='off' name = "revenue" id="revenue" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $revenue1 : ''); ?>">
                                                 <div id='rev_msg' class='err_msg'></div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Bid Offer:</label>
-                                                <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
-                                                <div id='bid_msg' class='err_msg'></div>
-                                            </div>                                      
                                         </div>
                                     </div>
                                     <div class ="row">

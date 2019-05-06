@@ -196,9 +196,9 @@ function printURL($con, $post){
 	 	$url.='compid='.$comp.'&';
 	 }
 
-	 if(!empty($units)){
+	 /*if(!empty($units)){
 	 	$url.='unit='.$units.'&';
-	 }
+	 }*/
 
 	 if(!empty($interval)){
 	 	$url.='interval='.$interval.'&';
