@@ -521,7 +521,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Interval:</label>
-                                                <input name = "interval_from" id="interval_from" class="form-control " style = "pointer-events: none" value = '<?php echo $hour;?>'>
+                                                <input name = "interval_from" id="interval_from" class="form-control " style = "pointer-events: none" value = '<?php echo $hour."H";?>'>
                                                 <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
                                                 <div id='int_msg' class='err_msg'></div>
                                             </div>
