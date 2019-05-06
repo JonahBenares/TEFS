@@ -19,13 +19,13 @@
 						<li><a href="#">
 							<em class="fa fa-home"></em>
 						</a></li>
-						<li class="active">Company</li>
+						<li class="active">Unit</li>
 					</ol>
 				</div>
 				
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Company</h1>
+						<h1 class="page-header">Unit</h1>
 					</div>
 				</div>
 
@@ -33,7 +33,7 @@
 					<div class="col-md-12">
 						<div class="panel panel-default box-shadow">
 							<div class="panel-heading">
-								Company List 
+								Unit List 
 								<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
 								<a class="pull-right  btn-primary panel-toggle" style="background:#30a5ff;color:white" data-toggle="modal" data-target="#mdl_company"><em class="fa fa-plus"></em></a>						
 							</div>
@@ -41,7 +41,7 @@
 								<div class="canvas-wrapper">
 									<table class="table  table-hover table-bordered" id="tbl_company" style="width:100%">
 										<thead class="th-header">
-											<th>Company Name</th>
+											<th>Unit Name</th>
 											<th>Action</th>
 										</thead>
 										<?php 

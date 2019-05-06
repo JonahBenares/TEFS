@@ -36,7 +36,7 @@ include('functions/functions.php');
     							<form method='GET' action='newrecord.php' style="margin:0px 50px 0px 50px">             
                                     <div class="col"></div>                
                                     <div class="col-lg-12">
-                                        <h2 class="control-label">Choose which CONTROL NUMBER does this file belongs to:</h2>
+                                        <h2 class="control-label">Choose which UNIT does this file belongs to:</h2>
                                         <div class="btn-group" data-toggle="buttons">
                                             <?php 
                                             $get_company = $con->query("SELECT * FROM company"); 

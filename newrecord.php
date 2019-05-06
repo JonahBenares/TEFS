@@ -7,7 +7,8 @@
     	$docid=$_GET['docid'];
     	$get_details = $con->query("SELECT * FROM document_info WHERE document_id = '$docid'");
     	$fetch_details = $get_details->fetch_array();
-    	$interval1=$fetch_details['interval_hr'];
+        $interval1=$fetch_details['interval_hr'];
+        $int = explode("-", $interval1);
         $units=$fetch_details['units'];
         $compid=$fetch_details['company_id'];
         $control_no1=$fetch_details['control_no'];
@@ -134,10 +135,12 @@
             frm.append('control_no', control_no);
             var doc_date =document.getElementById('doc_date').value;
             frm.append('doc_date', doc_date);
-            var interval =document.getElementById('interval').value;
-            frm.append('interval', interval);
-            var unit =document.getElementById('unit').value;
-            frm.append('unit', unit);
+            var interval_from =document.getElementById('interval_from').value;
+            frm.append('interval_from', interval_from);
+            var interval_to =document.getElementById('interval_to').value;
+            frm.append('interval_to', interval_to);
+            /*var unit =document.getElementById('unit').value;
+            frm.append('unit', unit);*/
             var pac =document.getElementById('pac').value;
             frm.append('pac', pac);
             var tac =document.getElementById('tac').value;
@@ -157,7 +160,9 @@
             var revenue =document.getElementById('revenue').value;
             frm.append('revenue', revenue);
             var remarks =document.getElementById('remarks').value;
-            frm.append('remarks', remarks);     
+            frm.append('remarks', remarks); 
+            /*var counter3 =document.getElementById('counter3').value;
+            frm.append('counter3', counter3);*/    
             if(doc_date==''){
                 $("#doc_date").focus();
                 $("#date_msg").show();
@@ -167,7 +172,7 @@
                 $("#date_msg").hide();
                 $("#cont_msg").show();
                 $("#cont_msg").html("Control No. field must not be empty.");
-            } else if(interval==''){
+            } /*else if(interval==''){
                 $("#interval").focus();
                 $("#date_msg").hide();
                 $("#int_msg").show();
@@ -177,7 +182,7 @@
                 $("#int_msg").hide();
                 $("#unit_msg").show();
                 $("#unit_msg").html("Units field must not be empty.");
-            } else if(pac==''){
+            }*/ else if(pac==''){
                 $("#pac").focus();
                 $("#unit_msg").hide();
                 $("#pac_msg").show();
@@ -187,12 +192,12 @@
                 $("#pac_msg").hide();
                 $("#tac_msg").show();
                 $("#tac_msg").html("Tender Available Capacity(CENECO) field must not be empty.");
-            } else if(bid==''){
+            } /*else if(bid==''){
                 $("#bid").focus();
                 $("#tac_msg").hide();
                 $("#bid_msg").show();
                 $("#bid_msg").html("Bid Offer field must not be empty.");
-            } else if(bcq==''){
+            }*/ else if(bcq==''){
                 $("#bcq").focus();
                 $("#bid_msg").hide();
                 $("#bcq_msg").show();
@@ -279,33 +284,51 @@
 		});
     });
 </script>
+<script>
+/*$(function() {
+    var IntervalDiv = $('#p_interval');
+    var i = $('#p_interval').size() + 1;
+    $('#addInterval').live('click', function() {
+        $('<div class="pchi'+i+'"><div class = "row"><div class="col-lg-2"><div class="form-group label-floating"><label class="control-label">Interval From:</label><select name = "interval_from'+i+'" id="interval_from'+i+'" class="form-control "><option value = "">--Select Interval From--</option><?php for($x=1;$x<=24;$x++){ ?><option value = "<?php echo $x; ?>" <?php echo (empty($int[0]) ? '' : (($int[0]==$x) ? 'selected' : '')); ?>><?php echo $x;?></option><?php } ?></select><div id="int_msg" class="err_msg"></div></div></div><div class="col-lg-2"><div class="form-group label-floating"><label class="control-label">Interval To:</label><select name = "interval_to'+i+'" id="interval_to'+i+'" class="form-control"><option value = "">--Select Interval To--</option><?php for($x=1;$x<=24;$x++){ ?><option value = "<?php echo $x; ?>" <?php echo (empty($int[1]) ? '' : (($int[1]==$x) ? 'selected' : '')); ?>><?php echo $x;?></option><?php } ?></select><div id="int_msg" class="err_msg"></div></div></div><div class="col-lg-4"><div class="form-group label-floating"><label class="control-label">Bid Offer:</label><input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>"><div id="bid_msg" class="err_msg"></div></div></div><div class="col-lg-2"><a href="#" class="btn btn-primary btn-sm btn-fill" id="addInterval">+</a> || <a href="#" class="btn btn-danger btn-sm btn-fill" id="remInterval">x</a></div></div></div>').appendTo(IntervalDiv);
+        i++;
+        var count3 = i - 1;
+        $('<input type="hidden" id="counterX3" name="counterX3" value="'+ count3 +'" />').appendTo(IntervalDiv); 
+        return false;
+    });
+
+    $('#remInterval').live('click', function() { 
+        if( i >= 2 ) {
+            i--;
+            $("div").remove(".pchi" + i);  
+        } 
+        return false;
+    });
+});*/
+</script>
 <script type="text/javascript">
-    function isNumberKey(evt){
-        var charCode = (evt.which) ? evt.which : event.keyCode;
-        var number = el.value.split('.');
-        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        //just one dot (thanks ddlab)
-        if(number.length>1 && charCode == 46){
-             return false;
-        }
-        //get the carat position
-        var caratPos = getSelectionStart(el);
-        var dotPos = el.value.indexOf(".");
-        if( caratPos > dotPos && dotPos>-1 && (number[1].length > 1)){
-            return false;
+    function isNumberKey(txt, evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode == 46) {
+            //Check if the text already contains the . character
+            if (txt.value.indexOf('.') === -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (charCode > 31
+                 && (charCode < 48 || charCode > 57))
+                return false;
         }
         return true;
     }
-
-    function isNumKey(evt){
+    /*function isNumberKey(evt){
         var charCode1 = (evt.which) ? evt.which : event.keyCode
         if (charCode1 > 31 && (charCode1 < 48 || charCode1 > 57))
         return false;
 
         return true;
-    }
+    }*/
 </script>
 <!-- <script>
     $(document).ready(function(){
@@ -493,52 +516,88 @@
                                                 <div id='cont_msg' class='err_msg'></div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group label-floating">
-                                                <label class="control-label">Interval:</label>
-                                                <input type="text" autosuggest='off' onkeypress="return isNumKey(event)" name = "interval" id="interval" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>">
-                                                <div id='int_msg' class='err_msg'></div>
+                                        <div class="col-lg-2">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Interval From:</label>
+                                                    <?php if(isset($_GET['docid'])){ ?>
+                                                    <select name = "interval_from" id="interval_from" class="form-control " style = "pointer-events: none">
+                                                        <option value = "">--Select Interval From--</option>
+                                                        <?php
+                                                            for($y=0;$y<=23;$y++){
+                                                        ?>
+                                                        <option value = "<?php echo $y; ?>:00" <?php echo (empty($int[0]) ? '' : (($int[0]==$y) ? 'selected' : '')); ?>><?php echo $y;?>:00</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php } else { ?>
+                                                    <select name = "interval_from" id="interval_from" class="form-control ">
+                                                        <option value = "">--Select Interval From--</option>
+                                                        <?php
+                                                            for($y=0;$y<=23;$y++){
+                                                        ?>
+                                                        <option value = "<?php echo $y; ?>:00" <?php echo (empty($int[0]) ? '' : (($int[0]==$y) ? 'selected' : '')); ?>><?php echo $y;?>:00</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php } ?>
+                                                    <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
+                                                    <div id='int_msg' class='err_msg'></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">  
-                                        <div class="col-lg-4">
+                                            <div class="col-lg-2">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Interval To:</label>
+                                                    <?php if(isset($_GET['docid'])){ ?>
+                                                    <select name = "interval_to" id="interval_to" class="form-control" style = "pointer-events: none">
+                                                        <option value = "">--Select Interval To--</option>
+                                                        <?php
+                                                            for($x=0;$x<=23;$x++){
+                                                        ?>
+                                                        <option value = "<?php echo $x; ?>:00" <?php echo (empty($int[1]) ? '' : (($int[1]==$x) ? 'selected' : '')); ?>><?php echo $x;?>:00</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php } else { ?>
+                                                    <select name = "interval_to" id="interval_to" class="form-control">
+                                                        <option value = "">--Select Interval To--</option>
+                                                        <?php
+                                                            for($x=0;$x<=23;$x++){
+                                                        ?>
+                                                        <option value = "<?php echo $x; ?>:00" <?php echo (empty($int[1]) ? '' : (($int[1]==$x) ? 'selected' : '')); ?>><?php echo $x;?>:00</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php } ?>
+                                                    <!-- <input type="text" autosuggest='off' name = "interval_to" id="interval_to" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
+                                                    <div id='int_msg' class='err_msg'></div>
+                                                </div>
+                                            </div>
+                                        <!-- <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Units:</label>
                                                 <input type="text" autosuggest='off' name = "unit" id="unit" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $units : ''); ?>">
                                                 <div id='unit_msg' class='err_msg'></div>
                                             </div>
-                                        </div>  
-        								<div class="col-lg-4">
-        									<div class="form-group label-floating">
-        	                                    <label class="control-label">Plant Available Capacity(MW):</label>
-        	                                    <input type="text" autocomplete="" onkeypress="return isNumKey(event)"  name = "pac" id="pac" class="form-control" style="width:100%"  value="<?php echo (isset($_GET['docid']) ? $pac_mw : ''); ?>" >
+                                        </div> -->
+                                    </div>
+                                    <div class="row">    
+                                        <div class="col-lg-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Plant Available Capacity(MW):</label>
+                                                <input type="text" autocomplete="" onkeypress="return isNumberKey(this,event)"  name = "pac" id="pac" class="form-control" style="width:100%"  value="<?php echo (isset($_GET['docid']) ? $pac_mw : ''); ?>" >
                                                  <div id='pac_msg' class='err_msg'></div>
-        	                                </div>  
-                                        </div>    
+                                            </div>  
+                                        </div>
                                         <div class="col-lg-4">                          
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Tender Available Capacity(CENECO):</label>
-                                                <input type="text"  autosuggest='off' onkeypress="return isNumKey(event)" name = "tac" id="tac" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $tac_ceneco : ''); ?>">
+                                                <input type="text"  autosuggest='off' onkeypress="return isNumberKey(this,event)" name = "tac" id="tac" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $tac_ceneco : ''); ?>">
                                                 <div id='tac_msg' class='err_msg'></div>
                                             </div>
-                                        </div>    
-                                    </div>
-                                    <div class="row">
+                                        </div>  
                                          <div class="col-lg-4">
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Bid Offer:</label>
-                                                <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
-                                                <div id='bid_msg' class='err_msg'></div>
-                                            </div>                                      
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group label-floating">
                                                 <label class="control-label">BCQ Nom.:</label>
-                                                <input type="text"  autosuggest='off' onkeypress="return isNumKey(event)" name = "bcq" id="bcq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bcq_nom : ''); ?>">
+                                                <input type="text"  autosuggest='off' onkeypress="return isNumberKey(this,event)" name = "bcq" id="bcq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bcq_nom : ''); ?>">
                                                 <div id='bcq_msg' class='err_msg'></div>
                                             </div>
-                                        </div>
+                                        </div> 
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Dispatched:</label>
@@ -546,12 +605,10 @@
                                                 <div id='dis_msg' class='err_msg'></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Capacity Dispatch(MW):</label>
-                                                <input type="text"  autosuggest='off' name = "cd" id="cd" onkeypress="return isNumKey(event)" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $cap_dispatch : ''); ?>">
+                                                <input type="text"  autosuggest='off' name = "cd" id="cd" onkeypress="return isNumberKey(this,event)" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $cap_dispatch : ''); ?>">
                                                 <div id='cd_msg' class='err_msg'></div>
                                             </div>
                                         </div>
@@ -562,15 +619,15 @@
                                                 <div id='foh_msg' class='err_msg'></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">MQ:</label>
-                                                <input type="text"  autosuggest='off' onkeypress="return isNumKey(event)" name = "mq" id="mq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $mq1 : ''); ?>">
+                                                <input type="text"  autosuggest='off' onkeypress="return isNumberKey(this,event)" name = "mq" id="mq" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $mq1 : ''); ?>">
                                                 <div id='mq_msg' class='err_msg'></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class ="row">
                                         <div class="col-lg-4">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Revenue:</label>
@@ -578,6 +635,15 @@
                                                 <div id='rev_msg' class='err_msg'></div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Bid Offer:</label>
+                                                <input type="text" name = "bid" id="bid" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $bid_offer : ''); ?>">
+                                                <div id='bid_msg' class='err_msg'></div>
+                                            </div>                                      
+                                        </div>
+                                    </div>
+                                    <div class ="row">
                                         <div class="col-lg-8">
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Remarks:</label>

@@ -37,10 +37,10 @@
 	    	"aaSorting": [[ 0, "asc" ]]
 	    });
 	    $('#tbl_record').DataTable({
-	    	"aaSorting": [[ 0, "desc" ]]
+	    	"aaSorting": [[ 1, "desc" ]]
 	    });
 	    $('#tbl_email').DataTable({
 	    	"aaSorting": [[ 0, "desc" ]]
 	    });
-	});	
+	});
 </script>

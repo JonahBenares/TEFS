@@ -30,7 +30,7 @@
 			<?php } ?>
 				<li>
 					<a class="" href="company.php">
-						<span class="fa fa-building">&nbsp;</span> Company
+						<span class="fa fa-building">&nbsp;</span> Unit
 					</a>
 				</li>
 				<li>
