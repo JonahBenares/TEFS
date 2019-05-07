@@ -60,7 +60,7 @@ $$var = mysqli_real_escape_string($con,$value);
 
     	$now = date('Y-m-d H:i:s');
         $intervals = $interval_from."-".$interval_to;
-        $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',interval_hr='$intervals',control_no='$control_no', user_id='$userid',pac_mw='$pac',tac_ceneco='$tac',bid_offer='$bid', bcq_nom='$bcq',dispatched='$dispatched',cap_dispatch='$cd', foh='$foh', mq = '$mq', revenue='$revenue', remarks='$remarks' WHERE document_id = '$doc_id'");
+        $update = mysqli_query($con,"UPDATE document_info SET logged_date='$now',document_date='$doc_date',company_id='$company',control_no='$control_no', user_id='$userid',pac_mw='$pac',tac_ceneco='$tac',bid_offer='$bid', bcq_nom='$bcq',dispatched='$dispatched',cap_dispatch='$cd', foh='$foh', mq = '$mq', revenue='$revenue', remarks='$remarks' WHERE document_id = '$doc_id'");
        
         if(!isset($counterX) || $counterX == ''){
             $ctrx = $counter;

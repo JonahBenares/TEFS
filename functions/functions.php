@@ -27,7 +27,6 @@
 	 	} else {
 	 		$sql.=" document_date BETWEEN '$doc_from' AND '$doc_from' AND";
 	 	}
-
 	 }
 
 	 if(!empty($comp)){
@@ -40,7 +39,7 @@
 	 }
 
 	 if(!empty($interval)){
-	 	$sql.=" interval_hr LIKE '%$interval%' AND";
+	 	$sql.=" hour LIKE '%$interval%' AND";
 		
 	 }
 

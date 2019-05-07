@@ -136,10 +136,13 @@
             frm.append('control_no', control_no);
             var doc_date =document.getElementById('doc_date').value;
             frm.append('doc_date', doc_date);
-            var interval_from =document.getElementById('interval_from').value;
-            frm.append('interval_from', interval_from);
-            var interval_to =document.getElementById('interval_to').value;
-            frm.append('interval_to', interval_to);
+            var doc = document.getElementById('doc').value;
+            if(doc=='0'){
+                var interval_from =document.getElementById('interval_from').value;
+                frm.append('interval_from', interval_from);
+                var interval_to =document.getElementById('interval_to').value;
+                frm.append('interval_to', interval_to);
+            }
             /*var unit =document.getElementById('unit').value;
             frm.append('unit', unit);*/
             var pac =document.getElementById('pac').value;
@@ -523,6 +526,7 @@
                                                 <label class="control-label">Interval:</label>
                                                 <input class="form-control " style = "pointer-events: none" value = '<?php echo $hour."H";?>'>
                                                 <div id='int_msg' class='err_msg'></div>
+                                                <input type="hidden" name = "doc" id="doc" class="form-control" value="<?php echo $_GET['docid']; ?>"> 
                                             </div>
                                         </div>
                                         <?php } else { ?>
@@ -545,6 +549,7 @@
                                                 </select>
                                                 <!-- <input type="text" autosuggest='off' name = "interval_from" id="interval_from" class="form-control" style="width:100%" value="<?php echo (isset($_GET['docid']) ? $interval1 : ''); ?>"> -->
                                                 <div id='int_msg' class='err_msg'></div>
+                                                <input type="hidden" name = "doc" id="doc" class="form-control" value="0">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
