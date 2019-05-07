@@ -196,14 +196,14 @@
 												?>
 												<tr>
 													<td>
-														<?php if($row['hour']=='0100'){ ?>
+														<?php //if($row['hour']=='0100'){ ?>
 															<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
-														<?php } ?>
+														<?php //} ?>
 													</td>
 													<td>
-														<?php if($row['hour']=='0100'){ ?>
+														<?php //if($row['hour']=='0100'){ ?>
 															<a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a>
-														<?php } ?>
+														<?php //} ?>
 													</td>
 													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['hour']."H";?></a></td>
 													<td><a onClick="viewPac(<?php echo $row['document_id'];?>)"><?php echo $row['pac_mw'];?></a></td>
