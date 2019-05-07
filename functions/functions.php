@@ -34,8 +34,8 @@
 	 	$sql.=" company_id = '$comp' AND";
 	 }
 
-	 if(!empty($units)){
-	 	$sql.=" units LIKE '%$units%' AND";
+	 if(!empty($control_no)){
+	 	$sql.=" control_no LIKE '%$control_no%' AND";
 		
 	 }
 
@@ -116,8 +116,8 @@ function filtersApplied($con, $post){
 	 	$filter.='Unit = ' . getInfo($con, 'company_name', 'company', 'company_id' ,$comp). ', ';
 	 }
 
-	 if(!empty($units)){
-	 	$filter.='Units = ' . $units. ', ';
+	 if(!empty($control_no)){
+	 	$filter.='Control Number = ' . $control_no. ', ';
 	 }
 
 	 if(!empty($interval)){
@@ -196,9 +196,9 @@ function printURL($con, $post){
 	 	$url.='compid='.$comp.'&';
 	 }
 
-	 /*if(!empty($units)){
-	 	$url.='unit='.$units.'&';
-	 }*/
+	 if(!empty($control_no)){
+	 	$url.='control_no='.$control_no.'&';
+	 }
 
 	 if(!empty($interval)){
 	 	$url.='interval='.$interval.'&';

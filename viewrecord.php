@@ -195,21 +195,27 @@
 														while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
-													
-													<td><?php echo $row['hour'];?></td>
-													<td><?php echo $row['control_no'];?></td>
-													<td><?php echo $row['document_date'];?></td>
-													<td><?php echo $row['hour'];?></td>
-													<td><?php echo $row['pac_mw'];?></td>
-													<td><?php echo $row['tac_ceneco'];?></td>
-													<td><?php echo $row['bid_offer'];?></td>
-													<td><?php echo $row['bcq_nom'];?></td>
-													<td><?php echo $row['dispatched'];?></td>
-													<td><?php echo $row['cap_dispatch'];?></td>
-													<td><?php echo $row['foh'];?></td>
-													<td><?php echo $row['mq'];?></td>
-													<td><?php echo $row['revenue'];?></td>
-													<td><?php echo $row['remarks'];?></td>
+													<td>
+														<?php if($row['hour']=='0100'){ ?>
+															<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
+														<?php } ?>
+													</td>
+													<td>
+														<?php if($row['hour']=='0100'){ ?>
+															<a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a>
+														<?php } ?>
+													</td>
+													<td><a onClick="viewInt(<?php echo $row['document_id'];?>)"><?php echo $row['hour']."H";?></a></td>
+													<td><a onClick="viewPac(<?php echo $row['document_id'];?>)"><?php echo $row['pac_mw'];?></a></td>
+													<td><a onClick="viewTac(<?php echo $row['document_id'];?>)"><?php echo $row['tac_ceneco'];?></a></td>
+													<td><a onClick="viewBid(<?php echo $row['document_id'];?>)"><?php echo $row['bid_offer'];?></a></td>
+													<td><a onClick="viewBcq(<?php echo $row['document_id'];?>)"><?php echo $row['bcq_nom'];?></a></td>
+													<td><a onClick="viewDis(<?php echo $row['document_id'];?>)"><?php echo $row['dispatched'];?></a></td>
+													<td><a onClick="viewCap(<?php echo $row['document_id'];?>)"><?php echo $row['cap_dispatch'];?></a></td>
+													<td><a onClick="viewFoh(<?php echo $row['document_id'];?>)"><?php echo $row['foh'];?></a></td>
+													<td><a onClick="viewMq(<?php echo $row['document_id'];?>)"><?php echo $row['mq'];?></a></td>
+													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
+													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
 														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>

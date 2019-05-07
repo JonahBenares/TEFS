@@ -315,11 +315,11 @@ function compAdd() {
                     </select>
                 </div>
 
-                 <!-- <div class="form-group label-floating hr_nomarg2">
-                    <label class="">Units</label>
-                    <input class="form-control" name = "units" >
+                 <div class="form-group label-floating hr_nomarg2">
+                    <label class="">Control No.</label>
+                    <input class="form-control" name = "control_no" >
                    
-                </div> -->
+                </div>
 
                 <div class="form-group label-floating hr_nomarg2">
                     <label class="">Interval</label>
