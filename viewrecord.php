@@ -246,17 +246,19 @@
 											<tbody>
 												<?php 
 													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '$_GET[unit]' ORDER BY document_date,document_id ASC");
+													$getmin = mysqli_query($con,"SELECT MIN(hour) AS minhour FROM document_info WHERE company_id = '$_GET[unit]' GROUP BY document_date");
+													$fetchmin = mysqli_fetch_array($getmin);
 													$r = 1;
 													while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
 													<td>
-														<?php if($row['hour']=='0100'){ ?>
+														<?php if($row['hour']==$fetchmin['minhour']){ ?>
 															<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
 														<?php } ?>
 													</td>
 													<td>
-														<?php if($row['hour']=='0100'){ ?>
+														<?php if($row['hour']==$fetchmin['minhour']){ ?>
 															<a onClick="viewDate(<?php echo $row['document_id'];?>)"><?php echo $row['document_date'];?></a>
 														<?php } ?>
 													</td>

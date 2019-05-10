@@ -7,22 +7,25 @@ $timestamp =  date("YmdHis");
 foreach($_POST as $var=>$value)
 $$var = mysqli_real_escape_string($con,$value);
 	if($doc_id==0){
-        for($x3=1; $x3<=$interval_to;$x3++){
+        $interv = abs($interval_to - $interval_from)+1;
+        $ints = $interval_from;
+        for($x3=1; $x3<=$interv;$x3++){
    	        $sql5 = mysqli_query($con,"SELECT MAX(document_id) as docid From document_info");
             $fetch = $sql5->fetch_array();
             $docid = $fetch['docid']+1;
             $now = date('Y-m-d H:i:s');
             $intervals = $interval_from."-".$interval_to;
-            /*$hr = "0".$x3."00";*/
-            if($x3 <= 9){
-                $hr = str_pad($x3, '4', '0',STR_PAD_BOTH);
+            //$hr = "0".$x3."00";
+            if($ints <= 9){
+                $hr = str_pad($ints, '4', '0',STR_PAD_BOTH);
             }else {
-                $hr = str_pad($x3, '4', '0',STR_PAD_RIGHT);
+                $hr = str_pad($ints, '4', '0',STR_PAD_RIGHT);
             }
 
             $insert= $con->query("INSERT INTO document_info (document_id,logged_date,document_date,company_id,interval_hr,control_no,user_id,pac_mw,tac_ceneco,bid_offer, bcq_nom,dispatched, cap_dispatch, foh, mq, revenue,remarks,hour) VALUES ('$docid','$now','$doc_date','$company','$intervals','$control_no','$userid','$pac','$tac','$bid','$bcq','$dispatched','$cd','$foh', '$mq','$revenue','$remarks','$hr')");
+
             if(!isset($counterX) || $counterX == ''){
-            $ctrx = $counter;
+                $ctrx = $counter;
             } 
             else{
                 $ctrx = $counterX;
@@ -54,8 +57,8 @@ $$var = mysqli_real_escape_string($con,$value);
                     
                 }
             }
-        }
-          
+            $ints++;
+        } 
     } else {
 
     	$now = date('Y-m-d H:i:s');

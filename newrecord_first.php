@@ -29,7 +29,7 @@ include('functions/functions.php');
     					<div class="panel-heading">
     						New Record
     						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span>
-    						<a class="pull-right  btn-primary panel-toggle" style="background:#8f39ff;color:white" href="viewrecord.php"><em class="fa fa-eye"></em></a>						
+    						<a class="pull-right  btn-primary panel-toggle" style="background:#8f39ff;color:white" href="viewrecord.php?unit=1"><em class="fa fa-eye"></em></a>						
     					</div>
     					<div class="panel-body">
     						<div class="row">
