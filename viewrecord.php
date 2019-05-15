@@ -58,7 +58,9 @@
 	    function viewRem(docid){
 	        window.open('attachment_rem.php?id='+docid, '_blank', 'top=0px,left=0px,width=650,height=700');
 	    }
-
+	    function updateAll(){
+	        window.open('update_all.php', '_blank', 'top=0px,left=0px,width=650,height=700');
+	    }
  	</script>
  	<style type="text/css">
  		/* Popup box BEGIN */
@@ -137,7 +139,7 @@
 					<h1 class="page-header">View Record</h1>
 				</div>
 			</div> -->
-
+			<form action = "update_all.php" method = "POST">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default box-shadow">
@@ -158,7 +160,8 @@
 							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?units=<?php echo $_GET['unit']; ?>"><em class="fa fa-cloud-download"></em></a>
 							<?php } ?>
 							<a class="pull-right  btn-success btn-fill panel-toggle" style="background:#099428;color:white" data-toggle="modal" data-target="#mdl_searchRecord"><em class="fa fa-search"></em></a>
-							<a class="pull-right btn-primary panel-toggle" style="background:#30a5ff;color:white" href="newrecord_first.php"><em class="fa fa-plus"></em></a>					
+							<a class="pull-right btn-primary panel-toggle" style="background:#30a5ff;color:white" href="newrecord_first.php"><em class="fa fa-plus"></em></a>	
+							<button class="btn btn-success pull-right" id='update' style="font-family:cursive;" name="submit_mult" type = "submit"><em class="fa fa-edit"></em></button>
 						</div>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
@@ -172,6 +175,7 @@
 											?>
 											<thead>
 												<tr>	
+													<th align="center"><input type="checkbox" name="" onClick="toggle_multi(this)"></th>
 													<th style="width:100px!important">Control No.</th>
 													<th>Date</th>
 													<th>Interval</th>
@@ -195,6 +199,7 @@
 														while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
+													<td align="center"><input class = "multi" type="checkbox" name="doc_id[]" value=<?php echo $row['document_id']; ?>></td>
 													<td>
 														<?php //if($row['hour']=='0100'){ ?>
 															<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
@@ -227,6 +232,7 @@
 											<?php } else { ?>
 											<thead>
 												<tr>
+													<th align="center"><input type="checkbox" name="" onClick="toggle_multi(this)"></th>
 													<th style="width:100px!important">Control No.</th>
 													<th>Date</th>
 													<th>Interval</th>
@@ -252,6 +258,7 @@
 													while($row = mysqli_fetch_array($sql)){
 												?>
 												<tr>
+													<td align="center"><input class = "multi" type="checkbox" name="doc_id[]" value=<?php echo $row['document_id']; ?>></td>
 													<td>
 														<?php if($row['hour']==$fetchmin['minhour']){ ?>
 															<a onClick="viewContNum(<?php echo $row['document_id'];?>)"><?php echo $row['control_no']?></a>
@@ -290,13 +297,33 @@
 						</div>
 					</div>
 				</div>
-			</div><!--/.row-->
+			</div>
+			</form><!--/.row-->
 			</div>
 		</div>
 	</div>
 </body>
 <?php include('scripts.php');?>
 <script type="text/javascript">
+	$(document).ready(function() {
+	    $("#update").attr("disabled", true);
+	    var $checkboxes = $('input[type="checkbox"]');
+	    $checkboxes.change(function(){
+	    	var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+			if(countCheckedCheckboxes  > 0){
+				$('#update').removeAttr("disabled");
+			}else {
+				$('#update').attr("disabled", true);
+			}
+	    });
+	});
+
+    function toggle_multi(source) {
+		checkboxes_multi = document.getElementsByClassName('multi');
+		for(var i=0, n=checkboxes_multi.length;i<n;i++) {
+			checkboxes_multi[i].checked = source.checked;
+		}
+    }
 	$(window).load(function () {
 		$(".trigger_popup_fricc").click(function(){
 		   $(".hover_bkgr_fricc").show();

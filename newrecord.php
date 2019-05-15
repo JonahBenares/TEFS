@@ -248,15 +248,14 @@
                     cache: false,
                     success: function(output){
                         var output= output.trim();
-                        alert(output);
-                        /*if(output=='ext'){
+                        if(output=='ext'){
                             alert('Error: File extension error.')
                         } else if(output=='error'){
                          alert('Error: There was an error in uploading your files.')
                         } else {
                             alert('Record successfully updated!');
                             window.location = 'viewrecord.php?unit=1';
-                        }*/
+                        }
                     }
                 }); 
             }
