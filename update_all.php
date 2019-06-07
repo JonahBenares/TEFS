@@ -1,11 +1,20 @@
 <?php 
     include('header.php');
     include 'functions/functions.php';
+
     if(isset($_POST['doc_id'])){
         $doc_id = $_POST['doc_id'];
     } else {
         $doc_id = '';
     }
+
+    if(isset($_POST['submit_del'])){
+        $count = count($doc_id);
+        for($x=0; $x < $count; $x++){   
+            mysqli_query($con, "DELETE FROM document_info WHERE document_id = '$doc_id[$x]'");
+            echo "<script>alert('Successfully Deleted.'); window.location='viewrecord.php?unit=".$_POST['unit']."'</script>";
+        }
+    } else {
 ?>
 <style type="text/css"> 
     .main-panel>.content{
@@ -180,3 +189,4 @@
     </div>
 <?php include('scripts.php');?>
 </html>
+<?php } ?>

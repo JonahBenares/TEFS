@@ -4,6 +4,14 @@
 	$usertype=$_SESSION['usertype'];
 	$userid=$_SESSION['userid'];
 
+	if(isset($_GET['deletedoc'])){
+        $docid=$_GET['docid'];   
+        $unit=$_GET['unit'];   
+        $delete = mysqli_query($con, "DELETE FROM document_info WHERE document_id = '$docid'");
+        if($delete){
+         	echo "<script>alert('Successfully Deleted.'); window.location='viewrecord.php?unit=".$unit."'</script>";
+        }   
+    }
 ?>
 <body>
 
@@ -133,13 +141,8 @@
 					<li class="active">View Records </li>
 				</ol>
 			</div>
-			
-			<!-- <div class="row">
-				<div class="col-lg-12">
-					<h1 class="page-header">View Record</h1>
-				</div>
-			</div> -->
 			<form action = "update_all.php" method = "POST">
+			<input type = "hidden" name = "unit" value ='<?php echo $_GET['unit']?>'>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default box-shadow">
@@ -157,11 +160,13 @@
 							<?php if(!empty($param)){ ?>
 							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?<?php echo $param; ?>"><em class="fa fa-cloud-download"></em></a>
 							<?php } else { ?>
-							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?units=<?php echo $_GET['unit']; ?>"><em class="fa fa-cloud-download"></em></a>
+							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?unit=<?php echo $_GET['unit']; ?>"><em class="fa fa-cloud-download"></em></a>
 							<?php } ?>
 							<a class="pull-right  btn-success btn-fill panel-toggle" style="background:#099428;color:white" data-toggle="modal" data-target="#mdl_searchRecord"><em class="fa fa-search"></em></a>
 							<a class="pull-right btn-primary panel-toggle" style="background:#30a5ff;color:white" href="newrecord_first.php"><em class="fa fa-plus"></em></a>	
-							<button class="btn btn-success pull-right" id='update' style="font-family:cursive;" name="submit_mult" type = "submit"><em class="fa fa-edit"></em></button>
+							<button class="btn btn-info pull-right" id='update' style="font-family:cursive;" name="submit_mult" value = "update" type = "submit"><em class="fa fa-edit"></em></button>
+
+							<button class="btn btn-danger pull-right" id ="delete" onclick="return confirm('Are you sure?');" name="submit_del" value = "delete"  type = "submit"><em class="fa fa-trash"></em></button>
 						</div>
 						<div class="panel-body">
 							<div class="canvas-wrapper">
@@ -225,6 +230,7 @@
 														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
+														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $_GET['unit'];?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 												<?php } } ?>
@@ -284,6 +290,7 @@
 														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
+														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $_GET['unit']?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 												<?php $r++; } ?>
@@ -314,6 +321,19 @@
 				$('#update').removeAttr("disabled");
 			}else {
 				$('#update').attr("disabled", true);
+			}
+	    });
+	});
+
+	$(document).ready(function() {
+	    $("#delete").attr("disabled", true);
+	    var $checkboxes = $('input[type="checkbox"]');
+	    $checkboxes.change(function(){
+	    	var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+			if(countCheckedCheckboxes  > 0){
+				$('#delete').removeAttr("disabled");
+			}else {
+				$('#delete').attr("disabled", true);
 			}
 	    });
 	});
