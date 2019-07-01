@@ -165,6 +165,8 @@
             frm.append('revenue', revenue);
             var remarks =document.getElementById('remarks').value;
             frm.append('remarks', remarks); 
+            var units =document.getElementById('units').value;
+            frm.append('units', units); 
             /*var counter3 =document.getElementById('counter3').value;
             frm.append('counter3', counter3);*/    
             if(doc_date==''){
@@ -254,7 +256,7 @@
                          alert('Error: There was an error in uploading your files.')
                         } else {
                             alert('Record successfully updated!');
-                            window.location = 'viewrecord.php?unit=1';
+                            window.location = 'viewrecord.php?unit='+units;
                         }
                     }
                 }); 
@@ -779,7 +781,8 @@
     								<div class="col-lg-12">
     									<hr>
     									<input type="button"  id = "submitButton" value="<?php echo (isset($_GET['docid']) ? 'Save Changes' : 'Save'); ?>" name = "save_data" class=" btn btn-md btn-trading" onclick='showFileSize();'style="width:100%"> 
-    								</div>                                        
+    								</div>  
+                                    <input type = "hidden" name = "units" id = "units" value = "<?php echo $_GET['company']?>">                                      
     								<?php if(!empty($docid)) { ?>
     									<input type='hidden' value='<?php echo $docid; ?>' name='doc_id' id='doc_id'>
     								<?php } else { ?>

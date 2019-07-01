@@ -287,7 +287,7 @@
 													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
 													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>&company=<?php echo $_GET['unit']?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
 														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $_GET['unit']?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
