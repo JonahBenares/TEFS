@@ -143,6 +143,7 @@
 			</div>
 			<form action = "update_all.php" method = "POST">
 			<input type = "hidden" name = "unit" value ='<?php echo $_GET['unit']?>'>
+			<input type = "hidden" name = "comp" value ='<?php echo $_POST['comp']?>'>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default box-shadow">
@@ -156,6 +157,13 @@
 							 	} else {
 							 		$param = '';
 							 	}
+
+							 	if(!empty($_POST['comp'])){
+							 		$unit= $_POST['comp'];
+							 	}else{
+							 		$unit= $_GET['unit'];
+							 	}
+
 							?>
 							<?php if(!empty($param)){ ?>
 							<a class="pull-right btn-warning panel-toggle" style="background:#ffb53e;color:white" id="btn_email" href="export_report.php?<?php echo $param; ?>"><em class="fa fa-cloud-download"></em></a>
@@ -227,10 +235,10 @@
 													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
 													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>" class = "btn btn-primary btn-xs">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>&company=<?php echo $unit?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
-														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $_GET['unit'];?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $unit;?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 												<?php } } ?>
@@ -287,10 +295,10 @@
 													<td><a onClick="viewRev(<?php echo $row['document_id'];?>)"><?php echo $row['revenue'];?></a></td>
 													<td><a onClick="viewRem(<?php echo $row['document_id'];?>)"><?php echo $row['remarks'];?></a></td>
 													<td align = "center">
-														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>&company=<?php echo $_GET['unit']?>" class = "btn btn-primary btn-xs">
+														<a href = "newrecord.php?docid=<?php echo $row['document_id'];?>&company=<?php echo $unit;?>" class = "btn btn-primary btn-xs">
 															<i class = "fa fa-edit"></i>
 														</a>
-														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $_GET['unit']?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+														<a href="?deletedoc&docid=<?php echo $row['document_id'];?>&unit=<?php echo $unit;?>" onclick="return confirm('Are you sure?');"  class = "btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 													</td>
 												</tr>
 												<?php $r++; } ?>

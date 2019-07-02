@@ -170,6 +170,7 @@
                                             </div>
                                         </div>
                                     </div> 
+                                    <input type="text" name="units" value ='<?php echo $_POST['comp']; ?>'>
 	    							<div class="col-lg-12">
 										<input type="submit"  id = "submitButton" value="<?php echo (isset($_POST['doc_id']) ? 'Save Changes' : 'Save'); ?>" name = "save_data" class=" btn btn-md btn-trading" style="width:100%"> 
 									</div> 
