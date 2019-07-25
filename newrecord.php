@@ -108,6 +108,8 @@
             frm.append('counter', counter);
             frm.append('counterX', counterX);
 
+            //alert(ctr);
+
             if(ctr==1){
                act = document.getElementById('p_acti1');
                attachname1 = document.getElementById('attach_name1').value;
@@ -250,6 +252,7 @@
                     cache: false,
                     success: function(output){
                         var output= output.trim();
+                        //alert(output);
                         if(output=='ext'){
                             alert('Error: File extension error.')
                         } else if(output=='error'){
@@ -270,21 +273,19 @@
         } else {
             var activityDiv = $('#p_activity1');
         }
-        var ii = document.getElementById('counter').value;        
+        var ii = document.getElementById('counter').value;      
 		$('#addActivity').live('click', function() {
-            ii++;           
+            ii++;        
 		    $('<div class = "acti'+ii+'"><div class="row"><div for="p_certs" class="col-lg-2"></div><div class="col-lg-4"><input type="file" name="attach_file'+ii+'" id="p_acti'+ii+'" class="btn btn-sm btn-normal " style="width:100%" ><div id="certBox'+ii+'" class="acti"></div></div><div for = "name_certs" class="col-lg-4"><select type="name" name="attach_name'+ii+'" id="attach_name'+ii+'" class="form-control" style="width:100%;height:35px;margin-bottom:5px;" placeholder="Remarks"><option value ="">--Select Remarks--</option><option value ="Control Number">Control Number</option><option value ="Date">Date</option><option value ="Interval">Interval</option><option value ="Units">Units</option><option value ="Plant Available Capacity(MW)">Plant Available Capacity(MW)</option><option value ="Tender Available Capacity(CENECO)">Tender Available Capacity(CENECO)</option><option value ="Bid Offer">Bid Offer</option><option value ="BCQ Nom">BCQ Nom.</option><option value ="Dispatched">Dispatched</option><option value ="Capacity Dispatch">Capacity Dispatch</option><option value ="FOH">FOH</option><option value ="MQ">MQ</option><option value ="Revenue">Revenue</option><option value ="Remarks">Remarks</option></select></div><div class="col-lg-2"><a href="#" class="btn btn-primary btn-sm btn-fill" id="addActivity">+</a> || <a href="#" class="btn btn-danger btn-sm btn-fill" id="remActivity">x</a></div></div></div>').appendTo(activityDiv);
-		    
-               document.getElementById("counterX").value = ii;
-               
-                $('<input type="hidden" id="attach_id'+ii+'" name="attach_id'+ii+'" value="" />').appendTo(activityDiv);
-                return false;
+            var c = ii - 1;
+            document.getElementById("counterX").value = c;
+            $('<input type="hidden" id="attach_id'+ii+'" name="attach_id'+ii+'" value="" />').appendTo(activityDiv);
+            return false;
 		});
 		$('#remActivity').live('click', function() { 
             if( ii >= 2 ) {
-              
                 $("div").remove(".acti" + ii);
-                  ii--;
+                ii--;
             } 
             return false;
 		});

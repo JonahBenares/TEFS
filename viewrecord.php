@@ -158,11 +158,11 @@
 							 		$param = '';
 							 	}
 
-							 	if(!empty($_POST['comp'])){
+							 	/*if(!empty($_POST['comp'])){
 							 		$unit= $_POST['comp'];
-							 	}else{
-							 		$unit= $_GET['unit'];
-							 	}
+							 	}else{*/
+							 	$unit= $_GET['unit'];
+							 	//}
 
 							?>
 							<?php if(!empty($param)){ ?>
