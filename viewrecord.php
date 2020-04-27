@@ -141,9 +141,96 @@
 					<li class="active">View Records </li>
 				</ol>
 			</div>
-			<form action = "update_all.php" method = "POST">
+			<?php 
+				if(!empty($_POST)){
+			 		$parameter = printURL($con,$_POST);
+			 		$url = "update_all.php?".$parameter; 
+			 	} else {
+			 		$urls='';
+					if(!empty($_GET['datefrom'])){
+					 	if(!empty($_GET['dateto'])){
+							$urls.='datefrom='.$_GET['datefrom'].'&dateto='.$_GET['dateto'].'&';
+						 } else {
+					 		$urls.='datefrom='.$_GET['datefrom'].'&';
+					 	}
+					 }
+
+					 
+					 if(!empty($_GET['compid'])){
+					 	$urls.='compid='.$_GET['compid'].'&';
+					 }
+
+					 if(!empty($_GET['control_no'])){
+					 	$urls.='control_no='.$_GET['control_no'].'&';
+					 }
+
+					 if(!empty($_GET['interval'])){
+					 	$urls.='interval='.$_GET['interval'].'&';
+					 }
+
+					 if(!empty($_GET['pac'])){
+
+					 	$urls.='pac='.$_GET['pac'].'&';
+					 }
+
+					  if(!empty($_GET['tac'])){
+
+					 	$urls.='tac='.$_GET['tac'].'&';
+					 }
+
+					 if(!empty($_GET['bid'])){
+
+					 	$urls.='bid='.$_GET['bid'].'&';
+					 }
+
+					 if(!empty($_GET['bcq'])){
+
+					 	$urls.='bcq='.$_GET['bcq'].'&';
+					 }
+
+					 if(!empty($_GET['disp'])){
+
+					 	$urls.='disp='.$_GET['disp'].'&';
+					 }
+
+					 if(!empty($_GET['cd'])){
+
+					 	$urls.='cd='.$_GET['cd'].'&';
+					 }
+
+					 if(!empty($_GET['foh'])){
+
+					 	$urls.='foh='.$_GET['foh'].'&';
+					 }
+
+					 if(!empty($_GET['mq'])){
+
+					 	$urls.='mq='.$_GET['mq'].'&';
+					 }
+
+					 if(!empty($_GET['revenue'])){
+
+					 	$urls.='revenue='.$_GET['revenue'].'&';
+					 }
+
+					 if(!empty($_GET['remarks'])){
+					 	$urls.='remarks='.$_GET['remarks'].'&';
+					 }
+
+
+					 if(substr($urls, 0, -1) == '&'){
+					 	$urls = substr($urls, 0, -1);
+					 } else {
+					 	$urls = $urls;
+					 }
+			 		$parameter = $urls;
+			 		$url = "update_all.php?".$parameter; 
+			 	}
+			?>
+			<form action = "<?php echo $url; ?>" method = "POST">
 			<input type = "hidden" name = "unit" value ='<?php echo $_GET['unit']?>'>
 			<input type = "hidden" name = "comp" value ='<?php echo $_POST['comp']?>'>
+			<input type = "hidden" name = "parameter" value ='<?php echo $parameter; ?>'>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default box-shadow">
@@ -161,7 +248,82 @@
 							 	/*if(!empty($_POST['comp'])){
 							 		$unit= $_POST['comp'];
 							 	}else{*/
-							 	$unit= $_GET['unit'];
+							 	$sql='';
+							 	if(!empty($_GET['compid'])){
+							 		$compid=$_GET['compid'];
+							 		$sql.=" company_id = '$compid' AND";
+							 	}else {
+							 		$unit= $_GET['unit'];
+							 		$sql.=" company_id = '$unit' AND";
+							 	}
+
+							 	if(!empty($_GET['datefrom']) && !empty($_GET['dateto'])) {
+							 		$datefrom=$_GET['datefrom'];
+							 		$dateto=$_GET['dateto'];
+									$sql .= " document_date BETWEEN '$datefrom' AND '$dateto' AND";
+								}
+
+								if(!empty($_GET['control_no'])){
+									$control_no=$_GET['control_no'];
+									$sql.=" control_no LIKE '%$control_no%' AND";
+							 	}
+
+							 	if(!empty($_GET['interval'])){
+							 		$interval= $_GET['interval'];
+							 		$sql.=" hour LIKE '%$interval%' AND";
+							 	}
+
+							 	if(!empty($_GET['pac'])){
+							 		$pac= $_GET['pac'];
+							 		$sql.=" pac_mw LIKE '%$pac%' AND";
+							 	}
+
+							 	if(!empty($_GET['tac'])){
+							 		$tac= $_GET['tac'];
+							 		$sql.=" tac_ceneco LIKE '%$tac%' AND";
+							 	}
+
+							 	if(!empty($_GET['bid'])){
+							 		$bid= $_GET['bid'];
+							 		$sql.=" bid_offer LIKE '%$bid%' AND";
+							 	}
+
+							 	if(!empty($_GET['bcq'])){
+							 		$bcq= $_GET['bcq'];
+							 		$sql.=" bcq_nom LIKE '%$bcq%' AND";
+							 	}
+
+								if(!empty($_GET['disp'])){
+							 		$disp= $_GET['disp'];
+							 		$sql.=" dispatched LIKE '%$disp%' AND";
+							 	}
+
+							 	if(!empty($_GET['cd'])){
+							 		$cd= $_GET['cd'];
+							 		$sql.=" cap_dispatch LIKE '%$cd%' AND";
+							 	}
+
+							 	if(!empty($_GET['foh'])){
+							 		$foh= $_GET['foh'];
+							 		$sql.=" foh LIKE '%$foh%' AND";
+							 	}
+
+							 	if(!empty($_GET['mq'])){
+							 		$mq= $_GET['mq'];
+							 		$sql.=" mq LIKE '%$mq%' AND";
+							 	}
+
+							 	if(!empty($_GET['revenue'])){
+							 		$revenue= $_GET['revenue'];
+							 		$sql.=" revenue LIKE '%$revenue%' AND";
+							 	}
+
+							 	if(!empty($_GET['remarks'])){
+							 		$remarks= $_GET['remarks'];
+							 		$sql.=" remarks LIKE '%$remarks%' AND";
+							 	}							 	
+
+								$query=substr($sql,0,-3);
 							 	//}
 
 							?>
@@ -265,7 +427,7 @@
 											</thead>
 											<tbody>
 												<?php 
-													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE company_id = '$_GET[unit]' ORDER BY document_date,document_id ASC");
+													$sql = mysqli_query($con,"SELECT * FROM document_info WHERE $query ORDER BY document_date,document_id ASC");
 													$getmin = mysqli_query($con,"SELECT MIN(hour) AS minhour FROM document_info WHERE company_id = '$_GET[unit]' GROUP BY document_date");
 													$fetchmin = mysqli_fetch_array($getmin);
 													$r = 1;

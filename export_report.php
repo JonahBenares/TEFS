@@ -21,9 +21,11 @@ if(!empty($_GET)){
 	if(!empty($_GET['compid'])){
 		$sql .= " company_id =  '$_GET[compid]' AND";
 	}
-	/*if(!empty($_GET['unit'])){
-		$sql .= " units =  '$_GET[unit]' AND";
-	}*/
+
+	if(!empty($_GET['unit'])){
+		$sql .= " company_id =  '$_GET[unit]' AND";
+	}
+	
 	if(!empty($_GET['interval'])){
 		$sql .= " interval_hr =  '$_GET[interval]' AND";
 	
@@ -60,10 +62,10 @@ if(!empty($_GET)){
 		$sql .= " remarks =  '$_GET[remarks]' AND";
 	}
 }
-$q = substr($sql,-3);
-if($q == 'AND'){
+//$q = substr($sql,-3);
+//if($q == 'AND'){
 	$sql = substr($sql,0,-3);
-}
+//}
 
 
 require_once 'js/phpexcel/Classes/PHPExcel/IOFactory.php';

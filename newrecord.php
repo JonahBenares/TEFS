@@ -257,7 +257,10 @@
                             alert('Error: File extension error.')
                         } else if(output=='error'){
                          alert('Error: There was an error in uploading your files.')
-                        } else {
+                        } else if(output=='duplicate'){
+                         alert('Error: Duplicate Entry try again!');
+                         window.location = 'newrecord.php?company='+units;
+                        }else {
                             alert('Record successfully updated!');
                             window.location = 'viewrecord.php?unit='+units;
                         }

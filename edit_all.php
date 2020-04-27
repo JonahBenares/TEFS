@@ -71,6 +71,7 @@
 			}
 		}
 		$units = $_POST['units'];
+		$parameter = $_POST['parameter'];
         $update = $con->query("UPDATE document_info SET document_date = '$doc_date', control_no = '$control_no', pac_mw = '$pac', cap_dispatch = '$cd', tac_ceneco = '$tac', bid_offer = '$bid', bcq_nom = '$bcq', dispatched = '$dispatched', foh = '$foh', mq = '$mq', revenue = '$revenue', remarks = '$remarks' WHERE document_id = '$doc_id'");
 
         if(!isset($counterX) || $counterX == ''){
@@ -120,5 +121,5 @@
             } 
         }
     }
-    echo "<script>alert('Successfully Updated!'); window.location = 'viewrecord.php?unit=$units';</script>";
+    echo "<script>alert('Successfully Updated!'); window.location = 'viewrecord.php?unit=$units&$parameter';</script>";
 ?>

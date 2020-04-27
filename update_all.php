@@ -316,6 +316,7 @@
                                     <div id = "p_activity1" ></div>
                                     <input type = "hidden" name = "counterX" id='counterX'>
                                     <input type="hidden" name="units" value ='<?php echo $_POST['unit']; ?>'>
+                                    <input type="hidden" name="parameter" value ='<?php echo $_POST['parameter']; ?>'>
 	    							<div class="col-lg-12">
 										<input type="submit"  id = "submitButton" value="<?php echo (isset($_POST['doc_id']) ? 'Save Changes' : 'Save'); ?>" name = "save_data" class=" btn btn-md btn-trading" style="width:100%"> 
 									</div> 

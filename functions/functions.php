@@ -185,7 +185,7 @@ function printURL($con, $post){
 
 	if(!empty($doc_from)){
 	 	if(!empty($doc_to)){
-			$url.='datefrom='.$doc_from.'&dateto='.$doc_to.'& ';
+			$url.='datefrom='.$doc_from.'&dateto='.$doc_to.'&';
 		 } else {
 	 		$url.='datefrom='.$doc_from.'&';
 	 	}
